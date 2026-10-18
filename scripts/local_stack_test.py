@@ -34,6 +34,7 @@ def main():
     parser.add_argument('--single-attempt-diagnostic', action='store_true',
                         help='Stop at the first time limit; explicitly tag status=1 as not for training')
     parser.add_argument('--time-limit-ps', type=float, help='Explicit local diagnostic time limit')
+    parser.add_argument('--auto-shutoff-min', type=float, help='Explicit threshold for a separate time-convergence check')
     parser.add_argument('--job-dir', type=Path, help='Separate local diagnostic output directory')
     parser.add_argument('--dataset', type=Path,
                         default=Path('D:/')/'\u4eff\u771f'/'au100_metal8_100'/'dataset.npz')
@@ -51,6 +52,8 @@ def main():
                       resonator_nk_csv=str(ROOT/'src/deta_generator2/assets/materials/as2se3_joseph_700nm.csv'))
     if args.time_limit_ps is not None:
         parameters['simulation_time_ps'] = args.time_limit_ps
+    if args.auto_shutoff_min is not None:
+        parameters['auto_shutoff_min'] = args.auto_shutoff_min
     settings = SimulationSettings(**parameters)
     if args.single_attempt_diagnostic:
         settings = SimulationSettings(**{**parameters, 'require_auto_shutoff': False})

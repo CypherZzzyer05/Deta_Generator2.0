@@ -131,12 +131,25 @@
     "substrate_termination": "pml",
     "original_package_replaced": false
   },
-  "validation_scope": "Native layout and mesh only; actual FDTD test tracked separately in Report repository",
+  "validation_scope": "Native layout, actual metal mesh, real single-sample FDTD; no material/grid accuracy certification",
   "original_v1_head": "d35973a988933356b3848cd213a4bf4819505106",
   "checks": {
     "unit_tests_passed": 83,
     "unit_test_seconds": 128.283,
     "entry_tests_after_default_directory_change": 9,
     "wheel_package_files_byte_verified": 17
+  },
+  "native_run": {
+    "status": 2,
+    "auto_shutoff_min": 1e-05,
+    "solver_wall_seconds": 184.25,
+    "actual_time_ps": 0.3731539,
+    "T_medium": "SiO2",
+    "T_range": [
+      7.115139439117737e-05,
+      0.0010605328150725382
+    ],
+    "precision_certified": false,
+    "report_repository": "https://github.com/CypherZzzyer05/Report"
   }
 }
