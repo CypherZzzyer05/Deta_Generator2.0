@@ -9,7 +9,7 @@
     <option name="ADD_CONTENT_ROOTS" value="false" />
     <option name="ADD_SOURCE_ROOTS" value="false" />
     <option name="SCRIPT_NAME" value="deta_generator2" />
-    <option name="PARAMETERS" value="parallel --job-dir jobs/topmetal_au100_metal8_1000_p10 --samples 1000 --jobs 10 --parallel-action status" />
+    <option name="PARAMETERS" value="parallel --job-dir jobs/pml_topmetal_au100_metal8_1000_p10 --samples 1000 --jobs 10 --parallel-action status" />
     <option name="MODULE_MODE" value="true" />
     <option name="SHOW_COMMAND_LINE" value="false" />
     <option name="EMULATE_TERMINAL" value="false" />

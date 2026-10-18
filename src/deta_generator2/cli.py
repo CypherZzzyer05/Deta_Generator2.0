@@ -48,6 +48,7 @@ def initialize(directory, preset, samples, threads, lumapi, metal_mesh_nm=None):
     load_config(config_path)
     return {'config': str(config_path), 'samples': samples,
             'metal_position': data['simulation']['metal_position'],
+            'substrate_termination': data['simulation']['substrate_termination'],
             'layer_order_bottom_to_top': ['SiO2', 'metal', 'As2Se3 tetramer'],
             'mesh_policy': data['simulation'].get('mesh_policy', 'legacy'),
             'mesh_nm': None if mesh == 'metal' else float(mesh),
@@ -79,6 +80,8 @@ def native_check(config, preflight=False):
         raise FileNotFoundError('FDTD executable missing: '+str(executable))
     report = {'python': sys.executable, 'lumapi': str(api), 'fdtd_executable': str(executable),
               'metal_position': config.simulation.metal_position,
+              'substrate_termination': config.simulation.substrate_termination,
+              'transmission_medium': 'SiO2' if config.simulation.substrate_termination == 'pml' else 'air',
               'metal_thickness_nm': config.simulation.metal_thickness_nm,
               'logical_cpus': psutil.cpu_count(), 'available_ram_gib': psutil.virtual_memory().available/2**30,
               'processes': config.simulation.processes, 'threads': config.simulation.threads,
@@ -140,7 +143,7 @@ def main(argv=None):
                 raise ValueError('Parallel uses a fixed Au100/metal8 task; use --job-dir, --workers, --concurrency and --threads')
             from .parallel import run_parallel
             samples = 100 if args.samples is None else args.samples
-            return run_parallel(args.job_dir or Path(f'jobs/topmetal_au100_metal8_{samples}'),
+            return run_parallel(args.job_dir or Path(f'jobs/pml_topmetal_au100_metal8_{samples}'),
                                 samples,args.workers,args.concurrency,args.threads,args.lumapi,
                                 args.parallel_action,args.pack_every,jobs=args.jobs)
         if args.jobs is not None or args.workers is not None or args.concurrency is not None:

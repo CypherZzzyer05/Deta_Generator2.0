@@ -1,0 +1,142 @@
+{
+  "solver_run_performed": false,
+  "native_layout_verified": true,
+  "fdtd_version": "8.31.3633",
+  "geometry_values": [
+    649.7604076511419,
+    161.1566330153756,
+    284.88377288849,
+    133.54673339593725,
+    116.4992120505661,
+    -33.64481402341028,
+    39.36335222367701
+  ],
+  "metal_position": "above_substrate",
+  "substrate_termination": "pml",
+  "transmission_medium": "SiO2",
+  "stack_interfaces_nm": {
+    "substrate_min": -2850,
+    "substrate_max": -100,
+    "metal_min": -100,
+    "metal_max": 0.0,
+    "stack_min": -450,
+    "domain_min": -1650,
+    "transmission_z": -1050.0
+  },
+  "native_objects_nm": {
+    "substrate": {
+      "z min": -2850.0000000000005,
+      "z max": -99.99999999999989
+    },
+    "metal_film": {
+      "z min": -100.0,
+      "z max": 0.0
+    },
+    "si_0": {
+      "z min": 0.0,
+      "z max": 284.88377288849006
+    },
+    "si_1": {
+      "z min": 0.0,
+      "z max": 284.88377288849006
+    },
+    "si_2": {
+      "z min": 0.0,
+      "z max": 284.88377288849006
+    },
+    "si_3": {
+      "z min": 0.0,
+      "z max": 284.88377288849006
+    },
+    "T": {
+      "z": -1050.0
+    },
+    "R": {
+      "z": 1184.88377288849
+    },
+    "source": {
+      "z": 884.8837728884902
+    }
+  },
+  "mesh_audit": {
+    "mesh_policy": "metal_only",
+    "maximum_mesh_nm": null,
+    "whole_domain_limit_enforced": false,
+    "actual_grid": {
+      "x": {
+        "points": 84,
+        "maximum_step_nm": 7.828438646399307,
+        "minimum_step_nm": 7.828438646398883
+      },
+      "y": {
+        "points": 84,
+        "maximum_step_nm": 7.828438646399307,
+        "minimum_step_nm": 7.828438646398883
+      },
+      "z": {
+        "points": 132,
+        "maximum_step_nm": 38.70967741935606,
+        "minimum_step_nm": 7.733333333332251
+      }
+    },
+    "all_returned_cells_below_10_nm": false,
+    "metal_region": {
+      "axis": "z",
+      "z_min_nm": -100,
+      "z_max_nm": 0.0,
+      "cells": 13,
+      "requested_step_nm": 8.0,
+      "maximum_step_nm": 7.7333333333333485,
+      "minimum_step_nm": 7.733333333333334,
+      "reference_mesh_without_metal": false,
+      "reference_xy_pinned": false
+    }
+  },
+  "recommended_ram_gib": 0.9900451215310857,
+  "available_ram_gib": 3.722393035888672,
+  "material_fit_errors": {
+    "As2Se3 - Joseph 700nm film (2020)": {
+      "max_n_error": 0.0068060458615883945,
+      "max_k_error": 0.0017094041668339333,
+      "max_imaginary_permittivity_error": 0.009892438894474886,
+      "accuracy_certified": false
+    },
+    "SiO2 (Glass) - Palik": {
+      "max_n_error": 0.008349388224864862,
+      "max_k_error": 0.0,
+      "max_imaginary_permittivity_error": 0.0,
+      "accuracy_certified": false
+    },
+    "Au (Gold) - Palik": {
+      "max_n_error": 0.6558529804086315,
+      "max_k_error": 0.9026045749913916,
+      "max_imaginary_permittivity_error": 14.173032698570964,
+      "accuracy_certified": false
+    }
+  },
+  "source_dataset_sha256": "591ca0f4d9f4fc0be9803f3a566f72eee1ee3ac871ad9d03472b93a732aed0e3",
+  "wheel": {
+    "version": "2.1.0",
+    "distribution": "deta-generator2",
+    "module": "deta_generator2",
+    "wheel": "deta_generator2-2.1.0-py3-none-any.whl",
+    "sha256": "7362015cae3547672dae3066d9f5972847fae3cec2877edbeebd3d454443c64e",
+    "package_files_verified": 17,
+    "installed_initialization_verified": true,
+    "physical_stack_bottom_to_top": [
+      "SiO2",
+      "Au",
+      "As2Se3 tetramer"
+    ],
+    "substrate_termination": "pml",
+    "original_package_replaced": false
+  },
+  "validation_scope": "Native layout and mesh only; actual FDTD test tracked separately in Report repository",
+  "original_v1_head": "d35973a988933356b3848cd213a4bf4819505106",
+  "checks": {
+    "unit_tests_passed": 83,
+    "unit_test_seconds": 128.283,
+    "entry_tests_after_default_directory_change": 9,
+    "wheel_package_files_byte_verified": 17
+  }
+}

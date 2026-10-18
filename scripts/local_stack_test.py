@@ -29,21 +29,31 @@ def main():
     parser.add_argument('--position', choices=['above_substrate', 'below_substrate'],
                         default='above_substrate')
     parser.add_argument('--threads', type=int, default=8)
+    parser.add_argument('--substrate-termination', choices=['pml', 'finite'], default='pml')
     parser.add_argument('--lumapi', help='Installed lumapi.py; defaults to environment or local discovery')
+    parser.add_argument('--single-attempt-diagnostic', action='store_true',
+                        help='Stop at the first time limit; explicitly tag status=1 as not for training')
+    parser.add_argument('--time-limit-ps', type=float, help='Explicit local diagnostic time limit')
+    parser.add_argument('--job-dir', type=Path, help='Separate local diagnostic output directory')
     parser.add_argument('--dataset', type=Path,
                         default=Path('D:/')/'\u4eff\u771f'/'au100_metal8_100'/'dataset.npz')
     args = parser.parse_args()
-    output = ROOT / 'jobs' / ('local_sample0_' + args.position)
+    output = args.job_dir.resolve() if args.job_dir else ROOT / 'jobs' / ('local_sample0_' + args.position)
     output.mkdir(parents=True, exist_ok=True)
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s',
                         handlers=[logging.StreamHandler(), logging.FileHandler(
                             output/'run.log', encoding='utf-8')])
     original_job = json.loads((args.dataset.parent/'job.json').read_text(encoding='utf-8-sig'))
     parameters = dict(original_job['simulation'])
-    parameters.update(metal_position=args.position, processes=1, threads=args.threads,
+    parameters.update(metal_position=args.position, substrate_termination=args.substrate_termination,
+                      processes=1, threads=args.threads,
                       hide_fdtd=True, save_projects=True,
                       resonator_nk_csv=str(ROOT/'src/deta_generator2/assets/materials/as2se3_joseph_700nm.csv'))
+    if args.time_limit_ps is not None:
+        parameters['simulation_time_ps'] = args.time_limit_ps
     settings = SimulationSettings(**parameters)
+    if args.single_attempt_diagnostic:
+        settings = SimulationSettings(**{**parameters, 'require_auto_shutoff': False})
     with np.load(args.dataset, allow_pickle=False) as data:
         row = int(np.flatnonzero(data['sample_ids'] == 0).item())
         values = data['geometry_values'][row].copy()
@@ -70,7 +80,9 @@ def main():
                              for key in keys}
         report = dict(solver_run_performed=False, native_layout_verified=True,
                       fdtd_version=simulator.version, geometry_values=values.tolist(),
-                      metal_position=args.position, stack_interfaces_nm=stack_interfaces_nm(settings),
+                      metal_position=args.position, substrate_termination=args.substrate_termination,
+                      transmission_medium='SiO2' if args.substrate_termination == 'pml' else 'air',
+                      stack_interfaces_nm=stack_interfaces_nm(settings),
                       native_objects_nm=objects, mesh_audit=audit,
                       recommended_ram_gib=recommended/2**30, available_ram_gib=available/2**30,
                       material_fit_errors={name: {k: v for k, v in value.items()
@@ -96,10 +108,12 @@ def main():
                                                 error=str(error)))
             raise
         result.update(geometry_values=values, settings_json=json.dumps(asdict(settings)),
+                      convergence_confirmed=int(result['status']) == 2,
+                      not_for_training=int(result['status']) != 2,
                       source_dataset_sha256=report['source_dataset_sha256'])
         np.savez_compressed(output/'result.npz', **result)
         np.savez_compressed(output/'historical_server_sample0.npz', **baseline)
-        write_json(output/'state.json', dict(state='complete', started_unix=started,
+        write_json(output/'state.json', dict(state='complete' if int(result['status']) == 2 else 'diagnostic_complete', started_unix=started,
                                             elapsed_seconds=time.time()-started,
                                             status=int(result['status']), result=str(output/'result.npz')))
         logging.info('Completed status=%s, solver time=%.1fs', result['status'], result['elapsed_seconds'])

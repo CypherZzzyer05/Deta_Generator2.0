@@ -6,11 +6,13 @@ Python 包为 `deta-generator2`，运行模块为 `deta_generator2`，可与旧�
 
 ## 结构和求解设置
 
-默认 Au 厚 100 nm，SiO2 厚 350 nm；四聚体底面在 z=0。SiO2 范围 −450 至 −100 nm，Au 范围 −100 至 0 nm，四聚体范围 0 至 H。基板采用有限厚度，底部保留空气与 PML，便于与旧层叠作受控对照。
+2.1.0 默认 Au 厚 100 nm，底层为延伸穿过下方 PML 的厚 SiO2 基板。四聚体底面在 z=0，Au 范围 −100 至 0 nm，SiO2 顶面在 −100 nm；层间直接接触，基板下方没有空气背界面。上方仍为空气入射区。
+
+`substrate_depth_nm=350` 在 `substrate_termination=pml` 模式中只是计算域深度参考，不是物理玻璃厚度。默认下边界为 −1650 nm，玻璃对象延伸至 −2850 nm，透射面位于 −1050 nm 的均匀 SiO2 内。改动计算域深度后这些坐标随配置调整。
 
 七个参数为 P、L、H、dX、dY、奇数象限角度、偶数象限角度。I/III 同角、II/IV 同角，各方柱绕自身中心旋转，正角逆时针。dX/dY 是未旋转时的名义边缘间隙。光谱范围 700–1700 nm，1000 个波长点。
 
-默认并行任务只在金属附近设置 z 向 8 nm 网格，其余采用自动网格。原生布局检查会逐项核对金膜、基板、四聚体、金属网格和 R/T 监视器；网格审核检查新金膜位置的实际步长，要求低于 10 nm。T 监视器位于完整有限层叠下方的空气中。
+默认并行任务只在金属附近设置 z 向 8 nm 网格，其余采用自动网格。原生布局检查会逐项核对金膜、基板、四聚体、金属网格和 R/T 监视器，确认玻璃覆盖下方 PML 和透射面；网格审核检查新金膜位置的实际步长，要求低于 10 nm。T 为进入玻璃的功率透射率，取原生监视器通量并按入射源功率归一化，不是电场振幅。
 
 ## 安装
 
@@ -21,7 +23,7 @@ Python 包为 `deta-generator2`，运行模块为 `deta_generator2`，可与旧�
 ```powershell
 conda create -n fdtd_gen2 python=3.10 -y
 conda activate fdtd_gen2
-python -m pip install .\artifacts\deta_generator2-2.0.0-py3-none-any.whl
+python -m pip install .\artifacts\deta_generator2-2.1.0-py3-none-any.whl
 python -m deta_generator2 --version
 ```
 
@@ -42,7 +44,7 @@ Run/Debug Configuration 新建 Python 配置：
 | Python 解释器 | 安装新版包的 conda 环境 |
 | 运行方式 | Module name |
 | 模块名 | `deta_generator2` |
-| 参数 | `parallel --job-dir jobs/topmetal_au100_metal8_1000_p10 --samples 1000 --jobs 10` |
+| 参数 | `parallel --job-dir jobs/pml_topmetal_au100_metal8_1000_p10 --samples 1000 --jobs 10` |
 | 工作目录 | 新版项目根目录 |
 | 环境变量 | `LUMERICAL_LUMAPI_PATH=E:\Lumerical\ANSYS Inc\v251\Lumerical\api\python\lumapi.py;PYTHONUNBUFFERED=1` |
 
@@ -55,17 +57,17 @@ Run/Debug Configuration 新建 Python 配置：
 ## 先试一个样本
 
 ```powershell
-python -m deta_generator2 init --job-dir jobs/topmetal_pilot --preset au-metal --metal-mesh-nm 8 --samples 1 --threads 8
-python -m deta_generator2 preflight --config jobs/topmetal_pilot/job.json
-python -m deta_generator2 generate --config jobs/topmetal_pilot/job.json --limit 1
+python -m deta_generator2 init --job-dir jobs/pml_topmetal_pilot --preset au-metal --metal-mesh-nm 8 --samples 1 --threads 8
+python -m deta_generator2 preflight --config jobs/pml_topmetal_pilot/job.json
+python -m deta_generator2 generate --config jobs/pml_topmetal_pilot/job.json --limit 1
 ```
 
 并行入口默认 Au100 / metal8。串行 `generate` 每次只处理一个结构；多样本同时计算请使用 `parallel`。`doctor` 和 `preflight` 不执行时间推进求解。
 
 ## 数据与验证边界
 
-新任务必须显式记录 `metal_position=above_substrate`。旧版缺少此字段的 job.json 会被拒绝，防止在旧数据目录里无意更换物理结构。元数据始终保留金层位置、金层厚度、材料数据哈希和实现哈希。合并时检查采样、物理配置、材料拟合和求解器版本的一致性。
+新任务必须显式记录 `metal_position=above_substrate` 和 `substrate_termination=pml`。2.0.0 的有限厚基板任务缺少后者，会被拒绝；请新建任务目录，不能把旧数据改标签后续算。独立对照可明确使用 `substrate_termination=finite`，并行默认启动器只接受 `pml`。元数据始终保留层序、基板终止方式、金层厚度、材料数据哈希和实现哈希。合并时检查物理配置、材料拟合和求解器版本的一致性。
 
 已有材料模型沿用旧版：As2Se3 实测数据到 1688 nm，末端 12 nm 为显式常数延拓；Au Palik 宽带拟合误差尚未认证。数据保持 `pipeline_validation` 级别。自动关断成功说明达到当前衰减阈值，不等于完成材料拟合、网格或场增强的物理精度验证。
 
-本机原生单样本测试结果与结构对照将整理到 `docs/local_stack_test/`。代码单元测试中的测试专用求解器只用于检验数据流程和并发控制，不代表真实 FDTD 结果。
+本机测试报告发布在 [Report 仓库](https://github.com/CypherZzzyer05/Report)。代码单元测试中的测试专用求解器只用于检验数据流程和并发控制，不代表真实 FDTD 结果。光谱窄峰的 Q 值需要足够时间衰减、频率分辨率及合理线型拟合，不能把反射谷的半突出度宽度直接当作模式 FWHM。

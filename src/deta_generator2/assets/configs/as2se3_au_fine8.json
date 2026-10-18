@@ -62,6 +62,7 @@
     "maximum_mesh_nm": 8,
     "material_fit_tolerance": 0,
     "material_imaginary_weight": 2,
-    "metal_position": "above_substrate"
+    "metal_position": "above_substrate",
+    "substrate_termination": "pml"
   }
 }

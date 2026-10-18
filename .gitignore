@@ -12,3 +12,5 @@ tmp/
 *.ldf
 *.log
 .idea/
+docs/local_finite_diagnostic/
+docs/local_pml_test/

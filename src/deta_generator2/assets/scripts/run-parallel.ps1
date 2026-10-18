@@ -2,7 +2,7 @@ param(
     [ValidateSet('prepare','run','status','merge')]
     [string]$Command = 'prepare',
     [string]$Python = 'python',
-    [string]$JobDir = '.\jobs\topmetal_au100_metal8_100',
+    [string]$JobDir = '.\jobs\pml_topmetal_au100_metal8_100',
     [ValidateRange(1,1000000)][int]$Samples = 100,
     [ValidateRange(0,64)][int]$Jobs = 0,
     [ValidateRange(0,64)][int]$Workers = 0,
@@ -20,7 +20,7 @@ $mergedPath = Join-Path $jobRoot 'merged'
 $pythonInfo = & $Python -c 'import sys,json,deta_generator2; from deta_generator2.resources import cpu_inventory; info=cpu_inventory(); print(json.dumps(dict(python=sys.executable,version=deta_generator2.__version__,package_file=deta_generator2.__file__,cpus=info[''budget_cpus''],cpu_inventory=info)))'
 if ($LASTEXITCODE -ne 0) { throw 'Cannot load deta_generator2 in the selected Python environment.' }
 $pythonInfo = $pythonInfo | ConvertFrom-Json
-if ([version]$pythonInfo.version -lt [version]'2.0.0') { throw 'Install deta-generator2 2.0.0 or newer first.' }
+if ([version]$pythonInfo.version -lt [version]'2.1.0') { throw 'Install deta-generator2 2.1.0 or newer first.' }
 $pythonExe = $pythonInfo.python
 if ($Jobs -gt 0) {
     if ($Concurrency -gt 0 -and $Concurrency -ne $Jobs) { throw '-Jobs and -Concurrency must agree; specify only -Jobs.' }
@@ -58,6 +58,7 @@ function Assert-Task {
         throw 'Sample count and shard count are fixed. Use a new JobDir to change them.'
     }
     if ($taskConfig.simulation.metal_position -ne 'above_substrate' -or
+        $taskConfig.simulation.substrate_termination -ne 'pml' -or
         $taskConfig.simulation.mesh_policy -ne 'metal_only' -or $taskConfig.simulation.metal_mesh_nm -ne 8 -or
         $taskConfig.simulation.metal_thickness_nm -ne 100 -or $taskConfig.simulation.remove_metal) {
         throw 'This launcher requires the SiO2 -> Au100 -> As2Se3 / metal-only 8 nm task; old jobs cannot be resumed in v2.'

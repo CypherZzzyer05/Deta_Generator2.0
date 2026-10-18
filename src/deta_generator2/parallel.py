@@ -52,7 +52,7 @@ def run_parallel(job_dir, samples=100, workers=None, concurrency=None, threads=N
         raise FileNotFoundError('Windows PowerShell is required for the parallel controller')
     script = Path(__file__).parent/'assets/scripts/run-parallel.ps1'
     if not script.is_file():
-        raise FileNotFoundError('Packaged controller missing; reinstall deta-generator2 2.0.0 or newer')
+        raise FileNotFoundError('Packaged controller missing; reinstall deta-generator2 2.1.0 or newer')
     job_dir = Path(job_dir).resolve()
     api = lumapi or os.environ.get('LUMERICAL_LUMAPI_PATH')
     env = dict(os.environ, PYTHONUNBUFFERED='1', PYTHONIOENCODING='utf-8')

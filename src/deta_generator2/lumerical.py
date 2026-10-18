@@ -20,15 +20,25 @@ LOG = logging.getLogger(__name__)
 
 
 def stack_interfaces_nm(settings):
-    """Keep the pillar base at z=0 and explicitly identify the two layer orders."""
+    """Actual extents, computational lower boundary and T plane, all in nm.
+
+    stack_min is only a computational reference in pml mode, not a glass
+    backside. Extend glass below the outer domain edge so PML contains glass.
+    """
     total_bottom = -settings.substrate_depth_nm-settings.metal_thickness_nm
     if settings.metal_position == 'above_substrate':
-        return {'substrate_min': total_bottom, 'substrate_max': -settings.metal_thickness_nm,
+        stack = {'substrate_min': total_bottom, 'substrate_max': -settings.metal_thickness_nm,
                 'metal_min': -settings.metal_thickness_nm, 'metal_max': 0.,
                 'stack_min': total_bottom}
-    return {'substrate_min': -settings.substrate_depth_nm, 'substrate_max': 0.,
-            'metal_min': total_bottom, 'metal_max': -settings.substrate_depth_nm,
-            'stack_min': total_bottom}
+    else:
+        stack = {'substrate_min': -settings.substrate_depth_nm, 'substrate_max': 0.,
+                 'metal_min': total_bottom, 'metal_max': -settings.substrate_depth_nm,
+                 'stack_min': total_bottom}
+    stack['domain_min'] = total_bottom-settings.bottom_padding_nm
+    stack['transmission_z'] = total_bottom-0.5*settings.bottom_padding_nm
+    if settings.substrate_termination == 'pml':
+        stack['substrate_min'] = stack['domain_min']-settings.bottom_padding_nm
+    return stack
 
 
 def mesh_grid_summary(grids, maximum_nm=None):
@@ -250,7 +260,7 @@ class FDTDSimulator:
         return result
 
     def build(self, geometry: Geometry, include_silicon=True, substrate_index=None):
-        """Create four configured-material squares, with an optional finite spacer/metal stack."""
+        """Create the tetramer/metal/glass stack, with explicit substrate termination."""
         f, s = self.fdtd, self.settings
         # 项目和标签采用 nm；Lumerical 的长度属性使用 SI 单位 m。
         nm = 1e-9
@@ -286,7 +296,7 @@ class FDTDSimulator:
                       z_min=bottom, z_max=top, override_x_mesh=True,
                       override_y_mesh=True, override_z_mesh=True,
                       dx=s.maximum_mesh_nm*nm, dy=s.maximum_mesh_nm*nm, dz=s.maximum_mesh_nm*nm)
-        # 金属背板模式使用有限厚衬底；无背板时衬底延伸进入底部 PML。
+        # pml 模式中玻璃跨越整个下方 PML，绝不创建基板背面的空气界面。
         material = s.substrate_material if substrate_index is None else "<Object defined dielectric>"
         f.addrect(name="substrate", x=0., y=0., x_span=3*p, y_span=3*p,
                   z_min=substrate_bottom if metal_enabled else bottom - p, z_max=substrate_top, material=material)
@@ -329,7 +339,7 @@ class FDTDSimulator:
         f.setglobalmonitor("use source limits", True)
         f.setglobalmonitor("use wavelength spacing", True)
         f.setglobalmonitor("frequency points", s.spectrum_points)
-        # R is above the source; T is below the complete finite layer stack.
+        # R is above the source. In pml mode T measures flux inside uniform glass.
         for name, z in (("R", h + 0.75*s.air_padding_nm*nm),
                         ("T", stack_bottom-0.5*s.bottom_padding_nm*nm if metal_enabled else -0.5*s.substrate_depth_nm*nm)):
             f.addpower(name=name, monitor_type="2D Z-normal", x=0., y=0.,
@@ -431,6 +441,9 @@ class FDTDSimulator:
             near('T', 'z', stack['stack_min']-0.5*s.bottom_padding_nm)
             near('substrate', 'z min', stack['substrate_min'])
             near('substrate', 'z max', stack['substrate_max'])
+            if s.substrate_termination == 'pml':
+                if not stack['substrate_min'] < stack['domain_min'] < stack['transmission_z'] < stack['substrate_max']:
+                    raise ValueError('PML substrate must cover the lower boundary and transmission monitor')
             if f.getnamed('substrate', 'material') != s.substrate_material:
                 raise ValueError('Native substrate material mismatch')
             count = int(f.getnamednumber('metal_film'))
@@ -520,6 +533,8 @@ class FDTDSimulator:
                       simulation_time_ps=time_limit_ps, run_attempts=len(attempts),
                       attempts_json=json.dumps(attempts), remove_metal=self.settings.remove_metal,
                       native_layout_verified=True, metal_position=self.settings.metal_position,
+                      substrate_termination=self.settings.substrate_termination,
+                      transmission_medium='SiO2' if self.settings.substrate_termination == 'pml' else 'air',
                       stack_interfaces_nm_json=json.dumps(stack_interfaces_nm(self.settings)))
         if mesh_summary is not None:
             result.update({f'mesh_{axis}_nm': positions * 1e9 for axis, positions in mesh_grids.items()})

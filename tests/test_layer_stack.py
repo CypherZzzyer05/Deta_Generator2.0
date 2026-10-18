@@ -3,32 +3,63 @@ import json
 from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
+from unittest.mock import MagicMock
 
 import numpy as np
 
-from deta_generator2.config import SimulationSettings, load_config
+from deta_generator2.config import Geometry, SimulationSettings, load_config
 from deta_generator2.cli import initialize
-from deta_generator2.lumerical import mesh_audit, stack_interfaces_nm
+from deta_generator2.lumerical import FDTDSimulator, mesh_audit, stack_interfaces_nm
 
 
 class LayerStackTests(unittest.TestCase):
     def setUp(self):
         self.settings = SimulationSettings(
             substrate_depth_nm=350, metal_thickness_nm=100,
+            substrate_termination='finite', bottom_padding_nm=1200,
             metal_material='Au (Gold) - Palik', metal_position='above_substrate',
             metal_mesh_nm=8, mesh_policy='metal_only')
 
     def test_direct_contact_and_contiguous_finite_layers(self):
         stack = stack_interfaces_nm(self.settings)
         self.assertEqual(stack, dict(substrate_min=-450, substrate_max=-100,
-                                     metal_min=-100, metal_max=0, stack_min=-450))
+                                     metal_min=-100, metal_max=0, stack_min=-450,
+                                     domain_min=-1650, transmission_z=-1050))
         self.assertEqual(stack['substrate_max'], stack['metal_min'])
         self.assertEqual(stack['metal_max'], 0)  # Actual pillar base.
 
     def test_original_order_remains_explicitly_available(self):
         stack = stack_interfaces_nm(replace(self.settings, metal_position='below_substrate'))
         self.assertEqual(stack, dict(substrate_min=-350, substrate_max=0,
-                                     metal_min=-450, metal_max=-350, stack_min=-450))
+                                     metal_min=-450, metal_max=-350, stack_min=-450,
+                                     domain_min=-1650, transmission_z=-1050))
+
+    def test_thick_glass_covers_lower_pml_and_transmission_plane(self):
+        settings = replace(self.settings, substrate_termination='pml')
+        stack = stack_interfaces_nm(settings)
+        self.assertEqual(stack['substrate_min'], -2850)
+        self.assertLess(stack['substrate_min'], stack['domain_min'])
+        self.assertLess(stack['domain_min'], stack['transmission_z'])
+        self.assertLess(stack['transmission_z'], stack['substrate_max'])
+        self.assertEqual(stack['substrate_max'], stack['metal_min'])
+        simulator = object.__new__(FDTDSimulator)
+        simulator.settings, simulator.fdtd = settings, MagicMock()
+        simulator.validate_native_layout = MagicMock()
+        simulator.build(Geometry(670, 165, 300, 110, 115))
+        rectangles = {c.kwargs['name']: c.kwargs for c in simulator.fdtd.addrect.call_args_list}
+        native_bottom = simulator.fdtd.addfdtd.call_args.kwargs['properties']['z min']
+        self.assertAlmostEqual(rectangles['substrate']['z_min'], -2850e-9)
+        self.assertLess(rectangles['substrate']['z_min'], native_bottom)
+        self.assertEqual(rectangles['substrate']['z_max'], rectangles['metal_film']['z_min'])
+        monitors = {c.kwargs['name']: c.kwargs for c in simulator.fdtd.addpower.call_args_list}
+        self.assertGreater(monitors['T']['z'], native_bottom)
+        self.assertLess(monitors['T']['z'], rectangles['substrate']['z_max'])
+
+    def test_invalid_termination_and_bottom_metal_pml_are_rejected(self):
+        with self.assertRaisesRegex(ValueError, 'substrate_termination'):
+            replace(self.settings, substrate_termination='ambiguous')
+        with self.assertRaisesRegex(ValueError, 'bottom-PML substrate'):
+            replace(self.settings, substrate_termination='pml', metal_position='below_substrate')
 
     def test_mesh_checks_the_new_metal_location(self):
         grids = {'x': np.array([-300, 0, 300])*1e-9,
@@ -53,7 +84,13 @@ class LayerStackTests(unittest.TestCase):
             self.assertEqual(config.simulation.metal_position, 'above_substrate')
             self.assertEqual(config.metadata()['simulation']['metal_position'], 'above_substrate')
             self.assertEqual(config.metadata()['simulation']['metal_thickness_nm'], 100)
+            self.assertEqual(config.metadata()['simulation']['substrate_termination'], 'pml')
             data = json.loads((directory/'job.json').read_text())
+            missing = json.loads(json.dumps(data))
+            missing['simulation'].pop('substrate_termination')
+            (directory/'job.json').write_text(json.dumps(missing))
+            with self.assertRaisesRegex(ValueError, 'explicit substrate_termination'):
+                load_config(directory/'job.json')
             for position in ('missing', 'below_substrate'):
                 if position == 'missing':
                     data['simulation'].pop('metal_position')

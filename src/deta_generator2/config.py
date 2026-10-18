@@ -118,6 +118,7 @@ class SimulationSettings:
     remove_metal: bool = False
     metal_thickness_nm: float = 100.0
     metal_position: str = "above_substrate"
+    substrate_termination: str = "pml"
     metal_mesh_nm: float = 5.0
     bottom_padding_nm: float = 1000.0
     polarization_deg: float = 0.0
@@ -165,6 +166,10 @@ class SimulationSettings:
             raise ValueError("Use the configured Au or Ag Palik material")
         if self.metal_position not in ("below_substrate", "above_substrate"):
             raise ValueError("metal_position must be below_substrate or above_substrate")
+        if self.substrate_termination not in ("pml", "finite"):
+            raise ValueError("substrate_termination must be pml or finite")
+        if self.substrate_termination == "pml" and self.metal_position == "below_substrate":
+            raise ValueError("A bottom-PML substrate requires metal_position=above_substrate")
         if self.remove_metal and self.metal_material is None:
             raise ValueError('Finite bare controls require a declared reference metal stack')
         for value in (self.metal_thickness_nm, self.metal_mesh_nm, self.bottom_padding_nm):
@@ -327,7 +332,7 @@ class PipelineConfig:
         if self.simulation.resonator_nk_csv:
             data["resonator_nk_sha256"] = hashlib.sha256(Path(self.simulation.resonator_nk_csv).read_bytes()).hexdigest()
             data['simulation']['resonator_nk_csv'] = 'content-addressed:resonator_nk_sha256'
-        data['generator'] = 'deta-generator2/2.0.0'
+        data['generator'] = 'deta-generator2/2.1.0'
         data['implementation_sha256'] = {name: hashlib.sha256(
             (Path(__file__).parent/name).read_text(encoding='utf-8').replace('\r\n', '\n').encode()).hexdigest()
             for name in ('config.py', 'lumerical.py', 'pipeline.py')}
@@ -344,6 +349,8 @@ def load_config(path):
     simulation = data.get("simulation", {})
     if simulation.get("metal_position") != "above_substrate":
         raise ValueError("v2 requires explicit metal_position=above_substrate; use a new v2 job, never an old dataset directory")
+    if simulation.get("substrate_termination") not in ("pml", "finite"):
+        raise ValueError("v2.1 requires explicit substrate_termination=pml or finite; create a new job instead of reinterpreting old data")
     if simulation.get("resonator_nk_csv"):
         simulation["resonator_nk_csv"] = str((path.parent / simulation["resonator_nk_csv"]).resolve())
     data["simulation"] = SimulationSettings(**simulation)
