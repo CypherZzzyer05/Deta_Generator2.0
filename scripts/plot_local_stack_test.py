@@ -29,20 +29,26 @@ def main():
     parser = argparse.ArgumentParser(__doc__)
     parser.add_argument('--test-dir', type=Path, required=True)
     parser.add_argument('--output', type=Path, default=ROOT/'docs/local_stack_test')
+    parser.add_argument('--structure-only', action='store_true')
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
-    with np.load(args.test_dir/'result.npz', allow_pickle=False) as archive:
-        result = {k: archive[k].copy() for k in archive.files}
-    with np.load(args.test_dir/'historical_server_sample0.npz', allow_pickle=False) as archive:
-        old = {k: archive[k].copy() for k in archive.files}
-    if int(result['status']) != 2 or str(result['metal_position']) != 'above_substrate':
-        raise ValueError('Only an automatically shut-off direct-contact native result may be plotted')
-    wavelength, reflectance = result['wavelength_nm'], result['reflectance']
-    if not np.allclose(wavelength, old['wavelength_nm'], atol=1e-5, rtol=0):
-        raise ValueError('Historical and new spectra have different wavelength grids')
-    values = result['geometry_values']
+    if args.structure_only:
+        preflight = json.loads((args.test_dir/'preflight.json').read_text(encoding='utf-8-sig'))
+        values = np.asarray(preflight['geometry_values'])
+        settings = json.loads((args.test_dir/'settings.json').read_text(encoding='utf-8-sig'))
+    else:
+        with np.load(args.test_dir/'result.npz', allow_pickle=False) as archive:
+            result = {k: archive[k].copy() for k in archive.files}
+        with np.load(args.test_dir/'historical_server_sample0.npz', allow_pickle=False) as archive:
+            old = {k: archive[k].copy() for k in archive.files}
+        if int(result['status']) != 2 or str(result['metal_position']) != 'above_substrate':
+            raise ValueError('Only an automatically shut-off direct-contact native result may be plotted')
+        wavelength, reflectance = result['wavelength_nm'], result['reflectance']
+        if not np.allclose(wavelength, old['wavelength_nm'], atol=1e-5, rtol=0):
+            raise ValueError('Historical and new spectra have different wavelength grids')
+        values = result['geometry_values']
+        settings = json.loads(str(result['settings_json']))
     geometry = Geometry(*values[:5], theta_odd_deg=values[5], theta_even_deg=values[6])
-    settings = json.loads(str(result['settings_json']))
     plt.rcParams.update({'font.sans-serif': ['Microsoft YaHei', 'DejaVu Sans'],
                          'axes.unicode_minus': False, 'font.size': 11,
                          'axes.spines.top': False, 'axes.spines.right': False})
@@ -75,6 +81,8 @@ def main():
     fig.tight_layout(rect=(0, .07, 1, .94))
     fig.savefig(args.output/'structure_comparison.png', dpi=180)
     plt.close(fig)
+    if args.structure_only:
+        return
 
     fig, axes = plt.subplots(2, 1, figsize=(12, 8), sharex=True)
     axes[0].plot(wavelength, old['spectra'], color=blue, lw=1.4, label='旧层叠：四聚体 / SiO2 / Au（服务器历史结果）')

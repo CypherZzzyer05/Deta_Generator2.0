@@ -29,6 +29,7 @@ def main():
     parser.add_argument('--position', choices=['above_substrate', 'below_substrate'],
                         default='above_substrate')
     parser.add_argument('--threads', type=int, default=8)
+    parser.add_argument('--lumapi', help='Installed lumapi.py; defaults to environment or local discovery')
     parser.add_argument('--dataset', type=Path,
                         default=Path('D:/')/'\u4eff\u771f'/'au100_metal8_100'/'dataset.npz')
     args = parser.parse_args()
@@ -52,7 +53,7 @@ def main():
     write_json(output/'settings.json', asdict(settings))
     project = output/'sample0.fsp'
     started = time.time()
-    with FDTDSimulator(settings, r'D:\Program Files\Lumerical\v241\api\python\lumapi.py') as simulator:
+    with FDTDSimulator(settings, args.lumapi) as simulator:
         simulator.build(geometry)
         simulator.fdtd.save(str(project))
         grids = {axis: np.asarray(simulator.fdtd.getresult('FDTD', axis)).reshape(-1)
@@ -87,7 +88,13 @@ def main():
         write_json(output/'state.json', dict(state='running', started_unix=started,
                                             pid=__import__('os').getpid(), project=str(project)))
         logging.info('Starting native FDTD: %s', args.position)
-        result = simulator.run(geometry, project)
+        try:
+            result = simulator.run(geometry, project)
+        except Exception as error:
+            write_json(output/'state.json', dict(state='failed', started_unix=started,
+                                                elapsed_seconds=time.time()-started,
+                                                error=str(error)))
+            raise
         result.update(geometry_values=values, settings_json=json.dumps(asdict(settings)),
                       source_dataset_sha256=report['source_dataset_sha256'])
         np.savez_compressed(output/'result.npz', **result)
