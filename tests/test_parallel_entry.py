@@ -15,7 +15,7 @@ class ParallelEntryTests(unittest.TestCase):
     def test_default_pycharm_dispatch_and_old_init_defaults(self):
         with patch('deta_generator2.parallel.run_parallel',return_value=0) as launch:
             self.assertEqual(main(['parallel']),0)
-            launch.assert_called_once_with(Path('jobs/topmetal_au100_metal8_100'),100,None,None,None,None,'start',25,jobs=None)
+            launch.assert_called_once_with(Path('jobs/pml_topmetal_au100_metal8_100'),100,None,None,None,None,'start',25,jobs=None)
         with patch('deta_generator2.cli.initialize',return_value={}) as initialize:
             self.assertEqual(main(['init']),0)
             initialize.assert_called_once_with(Path('jobs/as2se3'),'au-metal',12,8,None,None)
