@@ -1,0 +1,10 @@
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.toml text eol=lf
+*.txt text eol=lf
+*.ps1 text eol=crlf
+*.csv -text whitespace=cr-at-eol
+*.yml -text
+*.whl binary
+src/deta_generator2/assets/scripts/*.ps1 text eol=lf

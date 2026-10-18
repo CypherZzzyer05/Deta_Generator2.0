@@ -1,0 +1,67 @@
+{
+  "lumapi_path": null,
+  "output_dir": "../data/as2se3_au100_fine8",
+  "sample_count": 12,
+  "seed": 20261011,
+  "parameter_range_source": "Exploratory near-IR engineering bounds; not validated fabrication bounds",
+  "quality_level": "pipeline_validation",
+  "bounds_nm": {
+    "p": [
+      620,
+      690
+    ],
+    "l": [
+      160,
+      210
+    ],
+    "h": [
+      240,
+      380
+    ],
+    "alpha_x": [
+      90,
+      150
+    ],
+    "alpha_y": [
+      90,
+      150
+    ]
+  },
+  "quadrant_rotation_bounds_deg": {
+    "theta_odd_deg": [
+      -45,
+      45
+    ],
+    "theta_even_deg": [
+      -45,
+      45
+    ]
+  },
+  "simulation": {
+    "wavelength_start_nm": 700,
+    "wavelength_stop_nm": 1700,
+    "spectrum_points": 1000,
+    "mesh_accuracy": 4,
+    "mesh_nm": 8,
+    "simulation_time_ps": 4,
+    "auto_shutoff_min": 1e-05,
+    "air_padding_nm": 1200,
+    "substrate_depth_nm": 350,
+    "bottom_padding_nm": 1200,
+    "resonator_material": "As2Se3 - Joseph 700nm film (2020)",
+    "resonator_nk_csv": "../materials/as2se3_joseph_700nm.csv",
+    "material_max_extension_nm": 12,
+    "metal_material": "Au (Gold) - Palik",
+    "metal_thickness_nm": 100,
+    "metal_mesh_nm": 2.5,
+    "processes": 1,
+    "threads": 8,
+    "hide_fdtd": true,
+    "save_projects": true,
+    "require_auto_shutoff": true,
+    "maximum_mesh_nm": 8,
+    "material_fit_tolerance": 0,
+    "material_imaginary_weight": 2,
+    "metal_position": "above_substrate"
+  }
+}

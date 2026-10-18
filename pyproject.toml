@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "deta-generator2"
+version = "2.0.0"
+description = "Portable seven-parameter As2Se3 tetramer dataset generation with native Lumerical FDTD"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24,<3", "psutil>=5.9"]
+readme = "README.md"
+
+[project.scripts]
+deta-generator2 = "deta_generator2.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+deta_generator2 = ["assets/configs/*.json", "assets/materials/*.csv", "assets/materials/*.yml", "assets/materials/*.md", "assets/scripts/*.ps1"]

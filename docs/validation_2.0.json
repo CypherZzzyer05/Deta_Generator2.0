@@ -1,0 +1,129 @@
+{
+  "python": "D:\\Anaconda3\\python.exe",
+  "lumapi": "D:\\Program Files\\Lumerical\\v241\\api\\python\\lumapi.py",
+  "fdtd_executable": "D:\\Program Files\\Lumerical\\v241\\bin\\fdtd-solutions.exe",
+  "metal_position": "above_substrate",
+  "metal_thickness_nm": 100,
+  "logical_cpus": 16,
+  "available_ram_gib": 1.4136009216308594,
+  "processes": 1,
+  "threads": 8,
+  "implementation_sha256": {
+    "config.py": "7803b63145ad4e1621e582a6067f534bfe83856d3f816c389ec91007dbc36421",
+    "lumerical.py": "dd4a2bb731c0ec7f30fb5b31cdc9ec12f2e9244c3ee741634387554d65184a2c",
+    "pipeline.py": "73c41fc576bcbc4580e95c794cfa04aefd492d31f6b8fa9e0a5c48142a82e810"
+  },
+  "solver_run_performed": false,
+  "fdtd_version": "8.31.3633",
+  "native_layout_verified": true,
+  "mesh_audit": {
+    "mesh_policy": "metal_only",
+    "maximum_mesh_nm": null,
+    "whole_domain_limit_enforced": false,
+    "actual_grid": {
+      "x": {
+        "points": 84,
+        "maximum_step_nm": 7.828438646399307,
+        "minimum_step_nm": 7.828438646398883
+      },
+      "y": {
+        "points": 84,
+        "maximum_step_nm": 7.828438646399307,
+        "minimum_step_nm": 7.828438646398883
+      },
+      "z": {
+        "points": 119,
+        "maximum_step_nm": 38.70967741935606,
+        "minimum_step_nm": 7.73333333333331
+      }
+    },
+    "all_returned_cells_below_10_nm": false,
+    "metal_region": {
+      "axis": "z",
+      "z_min_nm": -100,
+      "z_max_nm": 0.0,
+      "cells": 13,
+      "requested_step_nm": 8.0,
+      "maximum_step_nm": 7.7333333333333485,
+      "minimum_step_nm": 7.733333333333334,
+      "reference_mesh_without_metal": false,
+      "reference_xy_pinned": false
+    }
+  },
+  "actual_mesh": {
+    "x": {
+      "points": 84,
+      "maximum_step_nm": 7.828438646399307,
+      "minimum_step_nm": 7.828438646398883
+    },
+    "y": {
+      "points": 84,
+      "maximum_step_nm": 7.828438646399307,
+      "minimum_step_nm": 7.828438646398883
+    },
+    "z": {
+      "points": 119,
+      "maximum_step_nm": 38.70967741935606,
+      "minimum_step_nm": 7.73333333333331
+    }
+  },
+  "recommended_ram_gib": 0.9867442357446997,
+  "geometry_values": [
+    649.7604076511419,
+    161.1566330153756,
+    284.88377288849,
+    133.54673339593725,
+    116.4992120505661,
+    -33.64481402341028,
+    39.36335222367701
+  ],
+  "material_fit_errors": {
+    "As2Se3 - Joseph 700nm film (2020)": {
+      "max_n_error": 0.0068060458615883945,
+      "max_k_error": 0.0017094041668339333,
+      "max_imaginary_permittivity_error": 0.009892438894474886,
+      "accuracy_certified": false
+    },
+    "SiO2 (Glass) - Palik": {
+      "max_n_error": 0.008349388224864862,
+      "max_k_error": 0.0,
+      "max_imaginary_permittivity_error": 0.0,
+      "accuracy_certified": false
+    },
+    "Au (Gold) - Palik": {
+      "max_n_error": 0.6558529804086315,
+      "max_k_error": 0.9026045749913916,
+      "max_imaginary_permittivity_error": 14.173032698570964,
+      "accuracy_certified": false
+    }
+  },
+  "checks": {
+    "unit_suite_before_final_default_and_object_label_changes": {
+      "tests": 81,
+      "seconds": 132.413,
+      "passed": true
+    },
+    "final_affected_generator_tests": 36,
+    "final_affected_stack_tests": 5,
+    "final_entry_tests": 9,
+    "wheel_package_files_match_source_and_installation": 17,
+    "original_generator_head_preserved": "d35973a988933356b3848cd213a4bf4819505106",
+    "original_generator_worktree_clean": true,
+    "native_engine_result": "separate local case still running; preflight does not run an engine"
+  },
+  "distribution": {
+    "version": "2.0.0",
+    "distribution": "deta-generator2",
+    "module": "deta_generator2",
+    "wheel": "deta_generator2-2.0.0-py3-none-any.whl",
+    "sha256": "549cb79219056e88b1942cd822fbe8e3e43ea4370937f79020395c8ae16236ae",
+    "package_files_verified": 17,
+    "installed_initialization_verified": true,
+    "physical_stack_bottom_to_top": [
+      "SiO2",
+      "Au",
+      "As2Se3 tetramer"
+    ],
+    "original_package_replaced": false
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "distribution": "deta-generator2",
+  "module": "deta_generator2",
+  "wheel": "deta_generator2-2.0.0-py3-none-any.whl",
+  "sha256": "549cb79219056e88b1942cd822fbe8e3e43ea4370937f79020395c8ae16236ae",
+  "package_files_verified": 17,
+  "installed_initialization_verified": true,
+  "physical_stack_bottom_to_top": [
+    "SiO2",
+    "Au",
+    "As2Se3 tetramer"
+  ],
+  "original_package_replaced": false
+}

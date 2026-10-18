@@ -1,0 +1,3 @@
+# Optional; dataset generation itself needs only numpy and psutil.
+matplotlib>=3.7
+scipy>=1.10
