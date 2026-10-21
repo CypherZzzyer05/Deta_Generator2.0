@@ -244,7 +244,7 @@ class PortableGeneratorTests(unittest.TestCase):
         initialize(self.root/'bare', 'bare-4', 2, 8, None)
         config = load_config(self.root/'bare/job.json')
         self.assertTrue(config.simulation.remove_metal)
-        self.assertEqual(config.simulation.metal_material, 'Au (Gold) - Palik')
+        self.assertEqual(config.simulation.metal_material, 'Au (Gold) - JC passive NIR v1')
         self.assertEqual(config.simulation.substrate_depth_nm, 350)
 
     def test_invalid_shard_and_threads_are_errors(self):
@@ -383,6 +383,7 @@ class NativeBoundaryTests(unittest.TestCase):
             simulator.version = 'test-only'
             simulator.fdtd = MagicMock()
             simulator.build = MagicMock()
+            simulator.material_identity = MagicMock()
             simulator.fdtd.runsystemcheck.return_value = {'Memory_Recommended_Bytes': 10e9}
             with patch('deta_generator2.lumerical.psutil.virtual_memory', return_value=SimpleNamespace(available=1e9)):
                 with self.assertRaises(MemoryError):
@@ -406,6 +407,7 @@ class NativeBoundaryTests(unittest.TestCase):
             simulator.version = 'test-only'
             simulator.fdtd = MagicMock()
             simulator.build = MagicMock()
+            simulator.material_identity = MagicMock()
             simulator.fdtd.runsystemcheck.return_value = {'Memory_Recommended_Bytes': 1e8}
             statuses = iter((1, 2))
             def native(name, key):
@@ -414,7 +416,8 @@ class NativeBoundaryTests(unittest.TestCase):
                 return {'lambda': config.simulation.wavelength_grid()*1e-9,
                         'T': np.full(1000, .2 if name == 'R' else -.7)}
             simulator.fdtd.getresult.side_effect = native
-            with patch('deta_generator2.lumerical.psutil.virtual_memory', return_value=SimpleNamespace(available=1e9)):
+            with patch('deta_generator2.lumerical.psutil.virtual_memory', return_value=SimpleNamespace(available=1e9)), \
+                    patch('deta_generator2.lumerical.pml_monitor_audit', return_value={'all_planes_outside_pml': True}):
                 result = simulator.run(config.sample_geometries()[0], Path(d)/'sample.fsp')
             self.assertEqual(result['status'], 2)
             self.assertEqual(result['run_attempts'], 2)

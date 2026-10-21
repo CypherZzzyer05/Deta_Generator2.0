@@ -12,3 +12,7 @@
 `Joseph-400nm.yml` 保留为材料工艺敏感性对照，默认不混用。
 
 FDTD 将 `(n+ik)^2` 转为复介电常数，以频率和复介电常数两列导入 Sampled data；方法见 https://optics.ansys.com/hc/en-us/articles/360034409654-setmaterial-Script-command 。材料内容的 SHA256 写入配置指纹，修改 CSV 会使旧结果无法被复用。
+
+## Au 2.2.0
+
+`au_jc_passive_nir_v1.json` 保存从 Lumerical 的 Johnson/Christy 输入数据拟合得到的正强度、正阻尼 Drude/Lorentz 模型，覆盖 700–1700 nm。原始论文：https://doi.org/10.1103/PhysRevB.6.4370 。服务器运行时只需 numpy 计算色散，不需要 scipy。原生 MCM 拟合仍须在该服务器上通过固定的 n/k/介电常数误差门槛。模型哈希随任务保存；不能和旧 Au/Palik 任务混用。

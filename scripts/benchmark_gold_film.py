@@ -15,6 +15,8 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'src'))
 from deta_generator2.lumerical import load_lumapi
+from deta_generator2.materials import (JC_GOLD_MATERIAL, JC_GOLD_SOURCE,
+    gold_model, gold_model_sha256, install_gold_material)
 from fit_drude_lorentz import permittivity
 from probe_metal_fit import metrics
 
@@ -58,7 +60,7 @@ def explicit_material(fdtd, parameters):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--case', choices=('legacy_palik', 'explicit_crc', 'smooth_crc', 'smooth_jc'), required=True)
+    parser.add_argument('--case', choices=('legacy_palik', 'explicit_crc', 'smooth_crc', 'smooth_jc', 'release_jc'), required=True)
     parser.add_argument('--mesh-nm', type=float, default=2.)
     parser.add_argument('--mesh-variant', type=int, choices=(0, 1), default=0)
     parser.add_argument('--run', action='store_true')
@@ -77,9 +79,15 @@ def main():
         fdtd.setresource('FDTD', 1, 'processes', '1')
         fdtd.setresource('FDTD', 1, 'threads', '4')
         gold_source = ('Au (Gold) - Palik' if args.case == 'legacy_palik' else
-                       'Au (Gold) - Johnson and Christy' if args.case == 'smooth_jc' else 'Au (Gold) - CRC')
+                       JC_GOLD_SOURCE if args.case in ('smooth_jc', 'release_jc') else 'Au (Gold) - CRC')
         raw = np.asarray(fdtd.getindex(gold_source, frequency)).reshape(-1)
-        if args.case != 'legacy_palik':
+        if args.case == 'release_jc':
+            install_gold_material(fdtd)
+            material = JC_GOLD_MATERIAL
+            native_parameters = dict(gold_model(), gold_model_sha256=gold_model_sha256())
+            index_model = np.asarray(fdtd.getfdtdindex(material, frequency,
+                frequency.min(), frequency.max())).reshape(-1)
+        elif args.case != 'legacy_palik':
             dataset, poles, filename = ('JC', 3, 'positive_poles_probe.json') if args.case == 'smooth_jc' else (
                 'CRC', 2, 'drude_lorentz_probe.json')
             rows = json.loads((ROOT/'research/metal_loss_fit'/filename).read_text())['results']

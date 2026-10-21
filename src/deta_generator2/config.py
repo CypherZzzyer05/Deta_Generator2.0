@@ -9,6 +9,8 @@ from pathlib import Path
 
 import numpy as np
 
+from .materials import JC_GOLD_MATERIAL, gold_model_sha256
+
 PARAMETER_NAMES = ("p", "l", "h", "alpha_x", "alpha_y")
 ROTATION_PARAMETER_NAMES = (*PARAMETER_NAMES, "rotation_deg")
 QUADRANT_PARAMETER_NAMES = (*PARAMETER_NAMES, "theta_odd_deg", "theta_even_deg")
@@ -97,6 +99,7 @@ class SimulationSettings:
     wavelength_stop_nm: float = 8000
     spectrum_points: int = 1000
     mesh_accuracy: int = 2
+    mesh_refinement: str = 'conformal variant 0'
     mesh_nm: float = 80
     simulation_time_ps: float = 3
     auto_shutoff_min: float = 1e-4
@@ -162,8 +165,13 @@ class SimulationSettings:
         for v in (self.hide_fdtd, self.save_projects, self.require_auto_shutoff, self.remove_metal):
             if not isinstance(v, bool):
                 raise ValueError("Boolean settings must use JSON true/false")
-        if self.metal_material not in (None, "Au (Gold) - Palik", "Ag (Silver) - Palik (0-2um)"):
-            raise ValueError("Use the configured Au or Ag Palik material")
+        if self.mesh_refinement not in ('conformal variant 0', 'conformal variant 1'):
+            raise ValueError('Use conformal variant 0 or conformal variant 1')
+        if self.metal_material not in (None, "Au (Gold) - Palik", "Ag (Silver) - Palik (0-2um)", JC_GOLD_MATERIAL):
+            raise ValueError("Use a configured Au or Ag material model")
+        if self.metal_material == JC_GOLD_MATERIAL and not (
+                700 <= self.wavelength_start_nm < self.wavelength_stop_nm <= 1700):
+            raise ValueError('The audited JC gold model covers 700-1700 nm')
         if self.metal_position not in ("below_substrate", "above_substrate"):
             raise ValueError("metal_position must be below_substrate or above_substrate")
         if self.substrate_termination not in ("pml", "finite"):
@@ -326,16 +334,22 @@ class PipelineConfig:
         for key in ("resonator_material", "resonator_nk_csv", "material_max_extension_nm",
                     "metal_material", "metal_mesh_nm", "bottom_padding_nm", "polarization_deg",
                     "material_fit_tolerance", "material_imaginary_weight", "research_grid", "maximum_mesh_nm", "mesh_policy",
-                    "monitor_downsample_xy", "power_validation_wavelengths_nm", "research_wavelengths_nm"):
+                    "monitor_downsample_xy", "power_validation_wavelengths_nm", "research_wavelengths_nm", "mesh_refinement"):
             if getattr(self.simulation, key) == SimulationSettings.__dataclass_fields__[key].default:
                 data["simulation"].pop(key)
         if self.simulation.resonator_nk_csv:
             data["resonator_nk_sha256"] = hashlib.sha256(Path(self.simulation.resonator_nk_csv).read_bytes()).hexdigest()
             data['simulation']['resonator_nk_csv'] = 'content-addressed:resonator_nk_sha256'
         data['generator'] = 'deta-generator2/2.1.0'
+        if self.simulation.metal_material == JC_GOLD_MATERIAL:
+            data['generator'] = 'deta-generator2/2.2.0'
+            data['gold_model_sha256'] = gold_model_sha256()
         data['implementation_sha256'] = {name: hashlib.sha256(
             (Path(__file__).parent/name).read_text(encoding='utf-8').replace('\r\n', '\n').encode()).hexdigest()
             for name in ('config.py', 'lumerical.py', 'pipeline.py')}
+        if self.simulation.metal_material == JC_GOLD_MATERIAL:
+            data['implementation_sha256']['materials.py'] = hashlib.sha256(
+                (Path(__file__).parent/'materials.py').read_text(encoding='utf-8').replace('\r\n', '\n').encode()).hexdigest()
         return data
 
 

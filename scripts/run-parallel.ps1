@@ -1,7 +1,7 @@
 param(
     [ValidateSet('prepare','run','status','merge')][string]$Command = 'prepare',
     [string]$Python = 'python',
-    [string]$JobDir = '.\jobs\pml_topmetal_au100_metal8_100',
+    [string]$JobDir = '.\jobs\jc220_topmetal_au100_metal8_100',
     [ValidateRange(1,1000000)][int]$Samples = 100,
     [ValidateRange(0,64)][int]$Jobs = 0,
     [ValidateRange(0,64)][int]$Workers = 0,

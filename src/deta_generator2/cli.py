@@ -9,7 +9,7 @@ import sys
 import numpy as np
 import psutil
 from .config import load_config
-from .lumerical import FDTDSimulator, locate_lumapi, mesh_audit
+from .lumerical import FDTDSimulator, locate_lumapi, mesh_audit, pml_monitor_audit
 from .pipeline import atomic_json, directory_lock, prepare_manifest, generate_dataset, pack_dataset
 from .merge import merge_shards
 from . import __version__
@@ -88,13 +88,17 @@ def native_check(config, preflight=False):
               'implementation_sha256': config.metadata()['implementation_sha256'],
               'solver_run_performed': False}
     with FDTDSimulator(config.simulation, str(api)) as simulator:
-        report.update(fdtd_version=simulator.version, material_identity=simulator.material_identity())
-        if preflight:
+        report.update(fdtd_version=simulator.version, material_identity=simulator.material_identity(enforce=False))
+        errors = [message for value in report['material_identity'].values()
+                  for message in value.get('validation_errors', [])]
+        report.update(material_validation_passed=not errors, material_validation_errors=errors)
+        if preflight and not errors:
             geometry = config.sample_geometries()[0]
             simulator.build(geometry)
             report['native_layout_verified'] = True
             grids = {a: np.asarray(simulator.fdtd.getresult('FDTD', a)).reshape(-1) for a in ('x', 'y', 'z')}
             report['mesh_audit'] = mesh_audit(grids, config.simulation)
+            report['pml_monitor_audit'] = pml_monitor_audit(simulator.fdtd, grids)
             report['actual_mesh'] = report['mesh_audit']['actual_grid']
             resources = simulator.fdtd.runsystemcheck()
             recommended = resources.get('Memory_Recommended_Bytes', resources.get('Memory_Recommended'))
@@ -107,6 +111,7 @@ def native_check(config, preflight=False):
     path.parent.mkdir(parents=True, exist_ok=True)
     atomic_json(path, report)
     return {'report': str(path), 'solver_run_performed': False,
+            'failed': int(not report['material_validation_passed']),
             **{key: value for key, value in report.items() if key != 'material_identity'},
             'material_fit_errors': {name: {key: value for key, value in values.items() if key != 'fitted_index_ri'}
                                     for name, values in report['material_identity'].items()}}
@@ -143,7 +148,7 @@ def main(argv=None):
                 raise ValueError('Parallel uses a fixed Au100/metal8 task; use --job-dir, --workers, --concurrency and --threads')
             from .parallel import run_parallel
             samples = 100 if args.samples is None else args.samples
-            return run_parallel(args.job_dir or Path(f'jobs/pml_topmetal_au100_metal8_{samples}'),
+            return run_parallel(args.job_dir or Path(f'jobs/jc220_topmetal_au100_metal8_{samples}'),
                                 samples,args.workers,args.concurrency,args.threads,args.lumapi,
                                 args.parallel_action,args.pack_every,jobs=args.jobs)
         if args.jobs is not None or args.workers is not None or args.concurrency is not None:

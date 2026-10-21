@@ -1,21 +1,23 @@
 {
-  "version": "2.1.1",
+  "version": "2.2.0",
   "distribution": "deta-generator2",
   "module": "deta_generator2",
-  "wheel": "deta_generator2-2.1.1-py3-none-any.whl",
-  "sha256": "a4ccbf9e2ed535b3972a107c1e45ef5c86b2c814f1a559cf30ecad76494f9c5a",
-  "package_files_verified": 20,
+  "wheel": "deta_generator2-2.2.0-py3-none-any.whl",
+  "sha256": "35cb97812dd8ab55f2718827f32c4a688cdf2d9d6aa24df32478011404f9adfe",
+  "package_files_verified": 22,
   "installed_initialization_verified": true,
+  "gold_model_sha256": "3d99086d70e1ecfcd0475f616029318a6549961856ca3c571c74376d298171a5",
   "physical_stack_bottom_to_top": [
     "SiO2",
     "Au",
     "As2Se3 tetramer"
   ],
   "substrate_termination": "pml",
+  "gold_source": "Johnson and Christy",
   "original_package_replaced": false,
   "previous_wheel": {
-    "version": "2.1.0",
-    "wheel": "deta_generator2-2.1.0-py3-none-any.whl",
-    "sha256": "7362015cae3547672dae3066d9f5972847fae3cec2877edbeebd3d454443c64e"
+    "version": "2.1.1",
+    "wheel": "deta_generator2-2.1.1-py3-none-any.whl",
+    "sha256": "a4ccbf9e2ed535b3972a107c1e45ef5c86b2c814f1a559cf30ecad76494f9c5a"
   }
 }

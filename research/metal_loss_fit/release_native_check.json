@@ -1,0 +1,24 @@
+{
+  "native_version": "8.31.3633",
+  "material": "Au (Gold) - JC passive NIR v1",
+  "source": "Au (Gold) - Johnson and Christy",
+  "model_sha256": "3d99086d70e1ecfcd0475f616029318a6549961856ca3c571c74376d298171a5",
+  "metrics": {
+    "max_n_error": 0.019684646506049952,
+    "max_k_error": 0.04985406759934996,
+    "max_relative_real_epsilon_error": 0.011837818309612584,
+    "max_relative_imag_epsilon_error": 0.038654369680594956,
+    "raw_imag_epsilon_range": [
+      1.0637685714545735,
+      16.55158010311333
+    ],
+    "fitted_imag_epsilon_range": [
+      1.026776669899391,
+      16.96690963698893
+    ],
+    "passive_in_band": true
+  },
+  "errors": [],
+  "extended_minimum_imag_epsilon": 1.7705754035035604e-05,
+  "solver_run_performed": false
+}

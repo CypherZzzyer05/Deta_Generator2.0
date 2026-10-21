@@ -15,8 +15,23 @@ import numpy as np
 import psutil
 
 from .config import Geometry, SimulationSettings
+from .materials import (JC_GOLD_MATERIAL, JC_GOLD_SOURCE, gold_model_sha256,
+                        install_gold_material, metal_fit_metrics, metal_fit_errors)
 
 LOG = logging.getLogger(__name__)
+
+
+def pml_monitor_audit(fdtd, grids):
+    """Read native PML thickness and reject source/power planes inside it."""
+    layers = int(np.asarray(fdtd.getnamed('FDTD', 'pml layers')).item())
+    z = np.asarray(grids['z']).reshape(-1)*1e9
+    lower, upper = float(z[layers]), float(z[-layers-1])
+    planes = {name: float(np.asarray(fdtd.getnamed(name, 'z')).item())*1e9
+              for name in ('source', 'R', 'T')}
+    if not all(lower < value < upper for value in planes.values()):
+        raise ValueError('Source or power monitor overlaps PML; increase air/bottom padding in a new job')
+    return {'pml_layers': layers, 'interior_z_nm': [lower, upper],
+            'planes_z_nm': planes, 'all_planes_outside_pml': True}
 
 
 def stack_interfaces_nm(settings):
@@ -193,6 +208,8 @@ class FDTDSimulator:
             self.fdtd.setresource("FDTD", 1, "processes", str(self.settings.processes))
             self.fdtd.setresource("FDTD", 1, "threads", str(self.settings.threads))
             s = self.settings
+            if s.metal_material == JC_GOLD_MATERIAL:
+                install_gold_material(self.fdtd)
             if s.resonator_nk_csv:
                 data = np.loadtxt(s.resonator_nk_csv, delimiter=",", skiprows=1)
                 if (data.ndim != 2 or data.shape[1] != 3 or len(data) < 3
@@ -239,7 +256,7 @@ class FDTDSimulator:
             self.fdtd.close()
             self.fdtd = None
 
-    def material_identity(self):
+    def material_identity(self, enforce=True):
         """Record actual fitted dispersion; it must agree when moving/resuming."""
         frequency = 299792458/(self.settings.wavelength_grid()*1e-9)
         names = filter(None, (self.settings.resonator_material or self.settings.silicon_material,
@@ -247,7 +264,8 @@ class FDTDSimulator:
                               None if self.settings.remove_metal else self.settings.metal_material))
         result = {}
         for name in names:
-            measured = np.asarray(self.fdtd.getindex(name, frequency)).reshape(-1)
+            reference = JC_GOLD_SOURCE if name == JC_GOLD_MATERIAL else name
+            measured = np.asarray(self.fdtd.getindex(reference, frequency)).reshape(-1)
             fitted = np.asarray(self.fdtd.getfdtdindex(name, frequency, frequency.min(), frequency.max())).reshape(-1)
             if measured.shape != frequency.shape or fitted.shape != frequency.shape or not (
                     np.isfinite(measured).all() and np.isfinite(fitted).all()) or np.any(fitted.imag < -1e-8):
@@ -257,6 +275,15 @@ class FDTDSimulator:
                             'max_k_error': float(abs(measured.imag-fitted.imag).max()),
                             'max_imaginary_permittivity_error': float(abs((measured**2-fitted**2).imag).max()),
                             'accuracy_certified': False}
+            if name == self.settings.metal_material:
+                values = metal_fit_metrics(measured, fitted)
+                errors = metal_fit_errors(name, values)
+                result[name].update(values, source_material=reference, validation_errors=errors,
+                                    material_fit_passed=not errors)
+                if name == JC_GOLD_MATERIAL:
+                    result[name]['gold_model_sha256'] = gold_model_sha256()
+                if errors and enforce:
+                    raise ValueError('Invalid metal material fit: '+'; '.join(errors))
         return result
 
     def build(self, geometry: Geometry, include_silicon=True, substrate_index=None):
@@ -286,6 +313,7 @@ class FDTDSimulator:
             ("y min bc", "Periodic"), ("y max bc", "Periodic"),
             ("z min bc", "PML"), ("z max bc", "PML"),
             ("index", s.background_index), ("mesh accuracy", s.mesh_accuracy),
+            ('mesh refinement', s.mesh_refinement),
             ("simulation time", s.simulation_time_ps * 1e-12),
             ("auto shutoff min", s.auto_shutoff_min), ("pml profile", 3)
         ]))
@@ -408,6 +436,8 @@ class FDTDSimulator:
         near('R', 'z', geometry.h+0.75*s.air_padding_nm)
         near('FDTD', 'z max', geometry.h+s.air_padding_nm)
         near('FDTD', 'index', s.background_index, 1)
+        if f.getnamed('FDTD', 'mesh refinement') != s.mesh_refinement:
+            raise ValueError('Native mesh refinement mismatch')
         if s.mesh_policy == 'metal_only':
             if any(int(f.getnamednumber(name)) for name in ('global_mesh_limit', 'structure_mesh')):
                 raise ValueError('metal_only layout contains a global or pillar mesh override')
@@ -456,6 +486,7 @@ class FDTDSimulator:
                     raise ValueError('Native metal-film material mismatch')
 
     def run(self, geometry, project_path, include_silicon=True, substrate_index=None):
+        self.material_identity()
         if geometry.theta_odd_deg is not None and self.settings.mesh_policy != 'metal_only' and (self.settings.maximum_mesh_nm is None
                 or not 0 < self.settings.maximum_mesh_nm < 10):
             raise ValueError('Real seven-parameter simulations require a whole-domain maximum mesh strictly below 10 nm; use the fine8 configuration or a finer research mesh')
@@ -484,6 +515,7 @@ class FDTDSimulator:
             mesh_grids = {axis: np.asarray(self.fdtd.getresult('FDTD', axis)).reshape(-1)
                           for axis in ('x', 'y', 'z')}
             audit = mesh_audit(mesh_grids, self.settings)
+            pml_audit = pml_monitor_audit(self.fdtd, mesh_grids)
             mesh_summary = audit['actual_grid']
             if self.settings.maximum_mesh_nm is not None and self.settings.monitor_downsample_xy > 1:
                 bound = max(mesh_summary[axis]['maximum_step_nm'] for axis in ('x', 'y'))*self.settings.monitor_downsample_xy
@@ -540,4 +572,5 @@ class FDTDSimulator:
             result.update({f'mesh_{axis}_nm': positions * 1e9 for axis, positions in mesh_grids.items()})
             result['mesh_summary_json'] = json.dumps(mesh_summary)
             result['mesh_audit_json'] = json.dumps(audit)
+            result['pml_monitor_audit_json'] = json.dumps(pml_audit)
         return result

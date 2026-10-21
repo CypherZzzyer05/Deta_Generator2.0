@@ -1,0 +1,170 @@
+{
+  "release": "2.2.0",
+  "date": "2026-10-22",
+  "native_version": "8.31.3633",
+  "tests": {
+    "passed": 106,
+    "elapsed_seconds": 90.433,
+    "native_solver_used_by_unit_tests": false
+  },
+  "wheel_sha256": "35cb97812dd8ab55f2718827f32c4a688cdf2d9d6aa24df32478011404f9adfe",
+  "wheel_source_files_verified": 22,
+  "gold_model_sha256": "3d99086d70e1ecfcd0475f616029318a6549961856ca3c571c74376d298171a5",
+  "implementation_sha256": {
+    "config.py": "7303ababba0a9886997eaae79ee69e3e55ab62df214530874f8d94f8151b5c7a",
+    "lumerical.py": "813ba2c0cead01c68b3a8bbf968cd06061f8db3ac51a6a286fda38541b3ac491",
+    "pipeline.py": "73c41fc576bcbc4580e95c794cfa04aefd492d31f6b8fa9e0a5c48142a82e810",
+    "materials.py": "c7fd80049d73f1ecba9730a72b7ef398451220ee2a91b50127a4ccb0ea32d93b"
+  },
+  "native_result_matches_release_implementation": true,
+  "material_validation_passed": true,
+  "tetramer": {
+    "solver_run_performed": true,
+    "solver_status": 2,
+    "elapsed_seconds": 129.51599999999962,
+    "attempts": 1,
+    "configured_simulation_time_ps": 4.0,
+    "geometry_values": [
+      649.7604076511419,
+      161.1566330153756,
+      284.88377288849,
+      133.54673339593725,
+      116.4992120505661,
+      -33.64481402341028,
+      39.36335222367701
+    ],
+    "parameter_names": [
+      "p",
+      "l",
+      "h",
+      "alpha_x",
+      "alpha_y",
+      "theta_odd_deg",
+      "theta_even_deg"
+    ],
+    "parameter_units": [
+      "nm",
+      "nm",
+      "nm",
+      "nm",
+      "nm",
+      "deg",
+      "deg"
+    ],
+    "spectrum_points": 1000,
+    "spectral_ranges": {
+      "reflectance": [
+        0.1889053613837746,
+        0.9342159551804857
+      ],
+      "transmittance": [
+        3.432780441472355e-05,
+        0.0006190421944585598
+      ],
+      "absorptance": [
+        0.06568792822641019,
+        0.810726687246629
+      ]
+    },
+    "config_fingerprint": "9d50cd36babf9ce146a869edeb575992f17690aef0b33a42f27b59136fb2cbde",
+    "mesh_audit": {
+      "mesh_policy": "metal_only",
+      "maximum_mesh_nm": null,
+      "whole_domain_limit_enforced": false,
+      "actual_grid": {
+        "x": {
+          "points": 84,
+          "maximum_step_nm": 7.828438646399307,
+          "minimum_step_nm": 7.828438646398883
+        },
+        "y": {
+          "points": 84,
+          "maximum_step_nm": 7.828438646399307,
+          "minimum_step_nm": 7.828438646398883
+        },
+        "z": {
+          "points": 194,
+          "maximum_step_nm": 38.46153846154546,
+          "minimum_step_nm": 7.73333333333151
+        }
+      },
+      "all_returned_cells_below_10_nm": false,
+      "metal_region": {
+        "axis": "z",
+        "z_min_nm": -100,
+        "z_max_nm": 0.0,
+        "cells": 13,
+        "requested_step_nm": 8.0,
+        "maximum_step_nm": 7.7333333333333485,
+        "minimum_step_nm": 7.733333333333334,
+        "reference_mesh_without_metal": false,
+        "reference_xy_pinned": false
+      }
+    },
+    "pml_monitor_audit": {
+      "pml_layers": 12,
+      "interior_z_nm": [
+        -1730.7671232876714,
+        2823.345311350024
+      ],
+      "planes_z_nm": {
+        "source": 1784.8837728884903,
+        "R": 2534.88377288849,
+        "T": -1250.0
+      },
+      "all_planes_outside_pml": true
+    }
+  },
+  "legacy_au_guard": {
+    "solver_run_performed": false,
+    "material_validation_passed": false,
+    "material_validation_errors": [
+      "Legacy Au/Palik fit almost removes Ohmic loss. Create a new 2.2 job; preserve old results for comparison."
+    ]
+  },
+  "ag_layout_check": {
+    "solver_run_performed": false,
+    "pml_monitor_audit": {
+      "pml_layers": 12,
+      "interior_z_nm": [
+        -1730.7671232876714,
+        2823.345311350024
+      ],
+      "planes_z_nm": {
+        "source": 1784.8837728884903,
+        "R": 2534.88377288849,
+        "T": -1250.0
+      },
+      "all_planes_outside_pml": true
+    },
+    "new_ag_material_certified": false
+  },
+  "film_validation": {
+    "8": {
+      "status": 2,
+      "actual_metal_max_step_nm": 7.7333333333333485,
+      "native_mesh_refinement": "conformal variant 1",
+      "model_maximum_R_error": 0.0005407355390507629,
+      "model_maximum_T_error": 8.52147799085658e-06,
+      "raw_input_maximum_R_error": 0.0009642821616111519,
+      "raw_input_maximum_T_error": 2.334749691363221e-05
+    },
+    "4": {
+      "status": 2,
+      "actual_metal_max_step_nm": 4.000000000000049,
+      "native_mesh_refinement": "conformal variant 1",
+      "model_maximum_R_error": 0.0003233707542247277,
+      "model_maximum_T_error": 1.4711861346054095e-06,
+      "raw_input_maximum_R_error": 0.0009148336604524188,
+      "raw_input_maximum_T_error": 1.9530664675112067e-05
+    }
+  },
+  "quality_level": "pipeline_validation",
+  "limitations": [
+    "One complete native tetramer validates the repaired generation path, not a trained inverse prediction.",
+    "Planar 8/4 nm checks do not certify full tetramer or near-field mesh convergence.",
+    "The server v251 must pass its own native preflight before dispatching its new batch.",
+    "Experimental thin-film accuracy, modal Q and BIC attribution are not certified.",
+    "As2Se3 endpoint extension over 1688-1700 nm remains explicit."
+  ]
+}
