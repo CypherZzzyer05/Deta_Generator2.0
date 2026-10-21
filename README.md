@@ -6,7 +6,7 @@ Python 包为 `deta-generator2`，运行模块为 `deta_generator2`，可与旧�
 
 ## 结构和求解设置
 
-2.1.0 默认 Au 厚 100 nm，底层为延伸穿过下方 PML 的厚 SiO2 基板。四聚体底面在 z=0，Au 范围 −100 至 0 nm，SiO2 顶面在 −100 nm；层间直接接触，基板下方没有空气背界面。上方仍为空气入射区。
+2.1.1 默认 Au 厚 100 nm，底层为延伸穿过下方 PML 的厚 SiO2 基板。四聚体底面在 z=0，Au 范围 −100 至 0 nm，SiO2 顶面在 −100 nm；层间直接接触，基板下方没有空气背界面。上方仍为空气入射区。
 
 `substrate_depth_nm=350` 在 `substrate_termination=pml` 模式中只是计算域深度参考，不是物理玻璃厚度。默认下边界为 −1650 nm，玻璃对象延伸至 −2850 nm，透射面位于 −1050 nm 的均匀 SiO2 内。改动计算域深度后这些坐标随配置调整。
 
@@ -23,7 +23,7 @@ Python 包为 `deta-generator2`，运行模块为 `deta_generator2`，可与旧�
 ```powershell
 conda create -n fdtd_gen2 python=3.10 -y
 conda activate fdtd_gen2
-python -m pip install .\artifacts\deta_generator2-2.1.0-py3-none-any.whl
+python -m pip install --upgrade .\artifacts\deta_generator2-2.1.1-py3-none-any.whl
 python -m deta_generator2 --version
 ```
 
@@ -50,9 +50,26 @@ Run/Debug Configuration 新建 Python 配置：
 
 点击运行后依次准备新任务、原生预检查、启动最多 10 个独立样本。`--jobs 10` 代表同时计算 10 个不同结构；每个结构分配的线程默认是可用 CPU 预算除以 10。64 个可用逻辑处理器对应 10×6 线程，128 个对应 10×12。不要给每个任务都分配整台机器的全部线程。
 
-调度器采用多组小分片，某个分片完成后补上下一个。初始少于 10 个原生引擎可能是加载和许可等待；运行窗口会区分 Python 工作进程和实际观察到的 FDTD 引擎。
+2.1.1 改为共享样本队列。一个样本完成并校验后，空位立即接下一个样本，不再把剩余样本固定在少数分片中。当未完成的样本总数少于 10 时，实际并发数自然下降；启动阶段的加载或许可等待也会影响实际引擎数。运行窗口区分 Python 工作进程和实际观察到的 FDTD 引擎。
 
-复制此配置并在参数末尾加 `--parallel-action status`，即可只读查看状态。日志位于任务的 `parallel_logs`；汇总结果位于 `merged/dataset.npz`。任务中断后使用同一条启动命令续算。任务的结构/数量/分片布局固定；要改变这些内容请使用新目录。
+复制此配置并在参数末尾加 `--parallel-action status`，即可只读查看最新状态快照及其时间。逐样本日志位于 `tail_resume/logs`，汇总结果仍位于 `merged/dataset.npz`。任务中断后使用同一条启动命令续算；已成功保存的样本经校验后复用。旧版 `shard*` 目录也可在同一任务中续算，原采样计划、标签和划分保持不变。任务的结构/数量/原分片布局固定；并发槽数 `--jobs` 可以调整，不受原分片数量限制。
+
+每个样本使用独立的 Python 工作进程和 FDTD API 会话，存在启动开销。并行控制测试使用模拟求解器验证调度，尚未在服务器上测量新版的真实 FDTD 吞吐量。原有 `--pack-every` 参数为兼容命令保留；单样本工作目录总是在样本完成后保存，最终统一合并。
+
+## 从 2.1.0 更新
+
+先让当前任务完成，或停止该任务的控制器及其求解器，再更新解释器中的包。不要在旧控制器运行期间替换包。新任务直接使用上面的 PyCharm 配置；续算兼容的 2.1.0 任务时，保持原任务目录和样本总数。
+
+```powershell
+python -m pip install --upgrade .\artifacts\deta_generator2-2.1.1-py3-none-any.whl
+python -m deta_generator2 --version
+```
+
+无需单独运行尾段加速脚本或合并修复脚本，正常 `parallel` 入口已包含这两项修复。最终合并对 Windows 短暂的文件占用（错误 5/32/33）进行有限重试，覆盖 manifest、样本复制和 dataset.npz 写入；持续权限错误会明确报错并保留成功样本。单次写入最多尝试 101 次，重试间隔 0.1 秒。
+
+中断任务可能留有部分汇总文件。以进程退出码 0、`success=样本总数` 且 `pending=0` 为完成依据；文件存在本身不表示整批完成。
+
+2.1.1 只修改调度和文件写入。`config.py`、`lumerical.py`、`pipeline.py` 与 2.1.0 完全相同，物理实现标识仍为 `deta-generator2/2.1.0`，用于保持旧任务指纹一致；安装包版本由 `--version` 查看，为 2.1.1。
 
 ## 先试一个样本
 

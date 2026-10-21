@@ -5,6 +5,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
+import textwrap
 from tempfile import TemporaryDirectory
 import unittest
 import numpy as np
@@ -27,7 +28,7 @@ class ParallelLauncherTests(unittest.TestCase):
         self.sample_trace.mkdir()
         # Each child uses the actual CLI, packing and merge implementations.
         # Only the native simulator is replaced by the existing test fixture.
-        (site/'sitecustomize.py').write_text('''
+        fixture = '''
 import json, os, pathlib, sys, time
 import psutil
 if os.environ.get('PARALLEL_TEST_CPUS') == '64':
@@ -52,7 +53,7 @@ class TimedTestSimulator(TestOnlySimulator):
         self.run_calls = 0
         return self
     def __exit__(self, *args):
-        trace = pathlib.Path(os.environ['PARALLEL_TEST_TRACE'])/f'{os.getpid()}.json'
+        trace = pathlib.Path(os.environ['PARALLEL_TEST_TRACE'])/f'{os.getpid()}_{time.time_ns()}.json'
         trace.write_text(json.dumps({'started':self.start,'ended':time.time()}))
     def run(self, geometry, project):
         if os.environ.get('PARALLEL_TEST_FAIL_SHARD') and '--shard-index' in sys.argv:
@@ -71,7 +72,9 @@ class TimedTestSimulator(TestOnlySimulator):
                     if time.monotonic() >= deadline:
                         raise RuntimeError(f'Test barrier timed out: expected {expected} simultaneous sample.run calls')
                     time.sleep(.02)
-            time.sleep(.02)
+            sample_id = int(pathlib.Path(project).stem.split('_')[-1])
+            delay = 8 if os.environ.get('PARALLEL_TEST_SLOW_FIRST') and sample_id < 3 else .02
+            time.sleep(delay)
             return super().run(geometry, project)
         finally:
             trace = pathlib.Path(os.environ['PARALLEL_TEST_RUN_TRACE'])/f'{os.getpid()}_{self.run_calls}.json'
@@ -79,7 +82,10 @@ class TimedTestSimulator(TestOnlySimulator):
                                          'pid':os.getpid(),'sample':pathlib.Path(project).stem,
                                          'test_fixture_only':True}))
 pipeline.FDTDSimulator = TimedTestSimulator
-''',encoding='utf-8')
+'''
+        (site/'sitecustomize.py').write_text(
+            'import os, traceback\ntry:\n'+textwrap.indent(fixture,'    ')+
+            '\nexcept BaseException:\n    traceback.print_exc()\n    os._exit(97)\n',encoding='utf-8')
         self.env = dict(os.environ, PYTHONPATH=os.pathsep.join([str(site),str(ROOT/'src'),str(ROOT/'tests')]),
                         PARALLEL_TEST_TRACE=str(self.trace), PARALLEL_TEST_RUN_TRACE=str(self.sample_trace),
                         OMP_NUM_THREADS='1', OPENBLAS_NUM_THREADS='1', MKL_NUM_THREADS='1',
@@ -106,14 +112,14 @@ pipeline.FDTDSimulator = TimedTestSimulator
             self.assertEqual(data['sample_ids'].tolist(),list(range(100)))
             self.assertEqual([len(data[name+'_indices']) for name in ('train','val','test')],[80,10,10])
         ids = []
-        for index in range(4):
-            manifest = json.loads((self.job/f'shard{index}/manifest.json').read_text())
+        for index in range(100):
+            manifest = json.loads((self.job/f'tail_resume/sample_{index:06d}/manifest.json').read_text())
             selected = [row['id'] for row in manifest['samples'] if row['state']=='success']
-            self.assertEqual(selected,list(range(index,100,4)))
+            self.assertEqual(selected,[index])
             ids += selected
         self.assertEqual(sorted(ids),list(range(100)))
         intervals = [json.loads(path.read_text()) for path in self.trace.iterdir()]
-        self.assertEqual(len(intervals),4)
+        self.assertEqual(len(intervals),100)
         events = sorted([(row['started'],1) for row in intervals]+[(row['ended'],-1) for row in intervals])
         active = peak = 0
         for _,change in events:
@@ -122,23 +128,26 @@ pipeline.FDTDSimulator = TimedTestSimulator
         self.assertLessEqual(peak,2)
         with np.load(self.job/'merged/dataset.npz') as dataset:
             previous = {key:dataset[key].copy() for key in dataset.files if key!='metadata_json'}
-        original_samples = {(index,path.name):path.read_bytes() for index in range(4)
-                            for path in (self.job/f'shard{index}/samples').glob('*.npz')}
+        original_samples = {(index,path.name):path.read_bytes() for index in range(100)
+                            for path in (self.job/f'tail_resume/sample_{index:06d}/samples').glob('*.npz')}
         resumed = self.invoke('run')
         self.assertEqual(resumed.returncode,0,resumed.stdout)
-        self.assertEqual(len(list(self.trace.iterdir())),4)
+        self.assertEqual(len(list(self.trace.iterdir())),100)
         with np.load(self.job/'merged/dataset.npz') as dataset:
             for key,values in previous.items(): np.testing.assert_array_equal(dataset[key],values)
         for (index,name),original in original_samples.items():
-            self.assertEqual((self.job/f'shard{index}/samples'/name).read_bytes(),original)
+            self.assertEqual((self.job/f'tail_resume/sample_{index:06d}/samples'/name).read_bytes(),original)
 
     def test_failed_worker_preserves_other_shards_then_can_resume(self):
         prepared = self.invoke('prepare',samples=8)
         self.assertEqual(prepared.returncode,0,prepared.stdout)
         failed = self.invoke('run',samples=8,env=dict(self.env,PARALLEL_TEST_FAIL_SHARD='1'))
         self.assertNotEqual(failed.returncode,0)
-        self.assertFalse((self.job/'merged/dataset.npz').exists())
-        self.assertTrue((self.job/'shard0/samples/sample_000000.npz').exists())
+        self.assertIn('Only 7/8 successful',failed.stdout)
+        if (self.job/'merged/dataset.npz').exists():
+            with np.load(self.job/'merged/dataset.npz') as data:
+                self.assertLess(len(data['sample_ids']),8)
+        self.assertTrue((self.job/'tail_resume/sample_000000/samples/sample_000000.npz').exists())
         resumed = self.invoke('run',samples=8)
         self.assertEqual(resumed.returncode,0,resumed.stdout)
         with np.load(self.job/'merged/dataset.npz') as data:
@@ -212,6 +221,53 @@ pipeline.FDTDSimulator = TimedTestSimulator
                 self.assertEqual(plan['workers'],jobs)
                 with np.load(job/'merged/dataset.npz') as data:
                     self.assertEqual(data['sample_ids'].tolist(),list(range(jobs)))
+
+    def test_ten_slots_refill_while_three_slow_samples_are_still_running(self):
+        env = dict(self.env, PARALLEL_TEST_CPUS='64', PARALLEL_TEST_SLOW_FIRST='1')
+        command = [sys.executable, '-m', 'deta_generator2', 'parallel', '--job-dir', str(self.job),
+                   '--samples', '23', '--workers', '4', '--jobs', '10', '--threads', '1']
+        result = subprocess.run(command, env=env, capture_output=True, text=True,
+                                encoding='utf-8', errors='replace', timeout=120)
+        self.assertEqual(result.returncode, 0, result.stdout+result.stderr)
+        rows = [json.loads(p.read_text()) for p in self.sample_trace.glob('*.json')]
+        by_id = {int(row['sample'].split('_')[-1]): row for row in rows}
+        self.assertEqual(sorted(by_id), list(range(23)))
+        first_slow_end = min(by_id[i]['ended'] for i in range(3))
+        self.assertLess(min(by_id[i]['started'] for i in range(10,23)), first_slow_end,
+                        'Pending work waited for the three slow original samples')
+        self.assertIn('native_engines=0', result.stdout)
+        with np.load(self.job/'merged/dataset.npz') as data:
+            self.assertEqual(data['sample_ids'].tolist(), list(range(23)))
+
+    def test_legacy_shards_resume_through_default_entry_without_recomputing_successes(self):
+        from dataclasses import replace
+        from unittest.mock import patch
+        from deta_generator2.cli import initialize
+        from deta_generator2.config import load_config
+        from deta_generator2.pipeline import atomic_json, generate_dataset, checksum
+        from test_generator import TestOnlySimulator
+        initialize(self.job, 'au-metal', 8, 1, None, metal_mesh_nm=8)
+        config = load_config(self.job/'job.json')
+        atomic_json(self.job/'parallel_plan.json', {'samples':8, 'workers':4})
+        with patch('deta_generator2.pipeline.FDTDSimulator', TestOnlySimulator):
+            for i in range(4):
+                generate_dataset(replace(config, output_dir=self.job/f'shard{i}'), sample_ids=[i])
+        original = {p:checksum(p) for p in self.job.glob('shard*/samples/*')}
+        original_job = (self.job/'job.json').read_bytes()
+        original_layout = (self.job/'parallel_plan.json').read_bytes()
+        command = [sys.executable, '-m', 'deta_generator2', 'parallel', '--job-dir', str(self.job),
+                   '--samples', '8', '--jobs', '8', '--threads', '1']
+        env = dict(self.env, PARALLEL_TEST_CPUS='64')
+        result = subprocess.run(command, env=env, capture_output=True, text=True,
+                                encoding='utf-8', errors='replace', timeout=120)
+        self.assertEqual(result.returncode, 0, result.stdout+result.stderr)
+        self.assertEqual({p:checksum(p) for p in original}, original)
+        self.assertEqual((self.job/'job.json').read_bytes(), original_job)
+        self.assertEqual((self.job/'parallel_plan.json').read_bytes(), original_layout)
+        rows = [json.loads(p.read_text()) for p in self.sample_trace.glob('*.json')]
+        self.assertEqual(sorted(int(row['sample'].split('_')[-1]) for row in rows), list(range(4,8)))
+        with np.load(self.job/'merged/dataset.npz') as data:
+            self.assertEqual(data['sample_ids'].tolist(), list(range(8)))
 
 
 if __name__ == '__main__': unittest.main()

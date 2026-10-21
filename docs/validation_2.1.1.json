@@ -1,0 +1,41 @@
+{
+  "version": "2.1.1",
+  "base_commit": "a4237b0a068b92d67170700417e911dd93dae814",
+  "test_count": 100,
+  "all_tests_passed": true,
+  "test_runtime_seconds": 92.589,
+  "solver_run_performed": false,
+  "test_simulator_only": true,
+  "server_fdtd_throughput_benchmarked": false,
+  "installed_wheel_prepare_verified": true,
+  "regressions": [
+    "ten_slots_refill_with_three_slow_samples",
+    "legacy_shards_reused_without_recomputation",
+    "single_failed_sample_resume",
+    "real_windows_manifest_read_handle",
+    "real_windows_dataset_read_handle",
+    "bounded_nested_write_retries"
+  ],
+  "unchanged_physical_sources": {
+    "config.py": {
+      "matches_source": true,
+      "matches_previous_wheel": true,
+      "matches_base_commit": true,
+      "sha256": "b82c98427b456b6cced249b037c3e2791951371ef051d1c841ebc56cdc9a0b8c"
+    },
+    "lumerical.py": {
+      "matches_source": true,
+      "matches_previous_wheel": true,
+      "matches_base_commit": true,
+      "sha256": "79e68b54e5f0517d0065f4c47b02bb1fce79b79a16343be70cac6f459331027c"
+    },
+    "pipeline.py": {
+      "matches_source": true,
+      "matches_previous_wheel": true,
+      "matches_base_commit": true,
+      "sha256": "73c41fc576bcbc4580e95c794cfa04aefd492d31f6b8fa9e0a5c48142a82e810"
+    }
+  },
+  "temporary_files_drive": "D:",
+  "incoming_v1_dataset_modified": false
+}

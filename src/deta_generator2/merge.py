@@ -4,9 +4,11 @@ import json
 from pathlib import Path
 import shutil
 import numpy as np
-from .pipeline import directory_lock, prepare_manifest, load_sample, atomic_json, pack_dataset, checksum, plan_checksum
+from .pipeline import directory_lock, prepare_manifest, load_sample, pack_dataset, checksum, plan_checksum
+from .storage import atomic_json, resilient_writes, retry_io
 
 
+@resilient_writes
 def merge_shards(config, directories):
     directories = [Path(p).resolve() for p in directories]
     if not directories or len(set(directories)) != len(directories):
@@ -66,13 +68,13 @@ def merge_shards(config, directories):
         for i, (path, entry) in sorted(incoming.items()):
             destination = samples/path.name
             temporary = destination.with_suffix('.npz.tmp')
-            shutil.copyfile(path, temporary)
+            retry_io(shutil.copyfile)(path, temporary)
             if checksum(temporary) != entry['sha256']:
                 raise ValueError('Copied sample failed checksum')
-            temporary.replace(destination)
+            retry_io(temporary.replace)(destination)
             csv = path.with_suffix('.csv')
             if csv.is_file():
-                shutil.copyfile(csv, destination.with_suffix('.csv'))
+                retry_io(shutil.copyfile)(csv, destination.with_suffix('.csv'))
             target['samples'][i] = entry
             atomic_json(config.output_dir/'manifest.json', target)
         target['merged_shards'] = [str(p) for p in directories]

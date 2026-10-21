@@ -1,10 +1,10 @@
 {
-  "version": "2.1.0",
+  "version": "2.1.1",
   "distribution": "deta-generator2",
   "module": "deta_generator2",
-  "wheel": "deta_generator2-2.1.0-py3-none-any.whl",
-  "sha256": "7362015cae3547672dae3066d9f5972847fae3cec2877edbeebd3d454443c64e",
-  "package_files_verified": 17,
+  "wheel": "deta_generator2-2.1.1-py3-none-any.whl",
+  "sha256": "a4ccbf9e2ed535b3972a107c1e45ef5c86b2c814f1a559cf30ecad76494f9c5a",
+  "package_files_verified": 20,
   "installed_initialization_verified": true,
   "physical_stack_bottom_to_top": [
     "SiO2",
@@ -12,5 +12,10 @@
     "As2Se3 tetramer"
   ],
   "substrate_termination": "pml",
-  "original_package_replaced": false
+  "original_package_replaced": false,
+  "previous_wheel": {
+    "version": "2.1.0",
+    "wheel": "deta_generator2-2.1.0-py3-none-any.whl",
+    "sha256": "7362015cae3547672dae3066d9f5972847fae3cec2877edbeebd3d454443c64e"
+  }
 }

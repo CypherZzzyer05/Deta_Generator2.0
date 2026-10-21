@@ -27,10 +27,8 @@ def resolve_resources(job_dir, samples=100, workers=None, concurrency=None, thre
         raise ValueError('Require 1<=workers<=min(samples,64)')
     if previous and workers != previous['workers']:
         raise ValueError('Existing shard count is fixed; use a new --job-dir to change it')
-    if requested is None:
-        active = min(active,workers)
-    if active > workers:
-        raise ValueError(f'Task has {workers} shards but {active} jobs were requested; use a new task with more shards')
+    # Legacy partition ownership remains fixed, but the shared sample queue is
+    # independent of that count. A four-shard task can now resume with ten slots.
     inventory = cpu_inventory()
     budget = inventory['budget_cpus']
     threads = max(1,budget//active) if threads is None else threads
@@ -52,7 +50,7 @@ def run_parallel(job_dir, samples=100, workers=None, concurrency=None, threads=N
         raise FileNotFoundError('Windows PowerShell is required for the parallel controller')
     script = Path(__file__).parent/'assets/scripts/run-parallel.ps1'
     if not script.is_file():
-        raise FileNotFoundError('Packaged controller missing; reinstall deta-generator2 2.1.0 or newer')
+        raise FileNotFoundError('Packaged controller missing; reinstall deta-generator2 2.1.1 or newer')
     job_dir = Path(job_dir).resolve()
     api = lumapi or os.environ.get('LUMERICAL_LUMAPI_PATH')
     env = dict(os.environ, PYTHONUNBUFFERED='1', PYTHONIOENCODING='utf-8')
@@ -67,7 +65,7 @@ def run_parallel(job_dir, samples=100, workers=None, concurrency=None, threads=N
         # Inherit stdout/stderr so progress appears in PyCharm's Run window.
         return subprocess.run(base+['-Command', command], env=env).returncode
 
-    print(f'PARALLEL CONFIG ({action}): capacity={concurrency} independent samples x {threads} threads each; {workers} queued shards; {samples} samples total.', flush=True)
+    print(f'PARALLEL CONFIG ({action}): capacity={concurrency} independent samples x {threads} threads each; dynamic queue of {samples} samples.', flush=True)
     print('CPU inventory: '+json.dumps(resources['cpu_inventory']),flush=True)
     if action != 'start':
         return invoke(action)

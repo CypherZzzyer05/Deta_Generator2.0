@@ -26,12 +26,12 @@ def retry_json_write(writer, attempts=40, delay=.05):
 
 def main(argv=None):
     from . import cli,pipeline
+    from .storage import pipeline_write_retries, retry_io
     original_pipeline,original_cli = pipeline.atomic_json,cli.atomic_json
-    wrapped = retry_json_write(original_pipeline)
-    pipeline.atomic_json = wrapped
-    cli.atomic_json = wrapped
+    cli.atomic_json = retry_io(original_cli)
     try:
-        return cli.main(argv)
+        with pipeline_write_retries():
+            return cli.main(argv)
     finally:
         pipeline.atomic_json,cli.atomic_json = original_pipeline,original_cli
 

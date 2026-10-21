@@ -82,8 +82,8 @@ class ParallelEntryTests(unittest.TestCase):
             original = path.read_bytes()
             plan = resolve_resources(directory,jobs=4)
             self.assertEqual((plan['workers'],plan['threads']),(4,16))
-            with self.assertRaisesRegex(ValueError,'4 shards'):
-                resolve_resources(directory,jobs=10)
+            ten = resolve_resources(directory,jobs=10)
+            self.assertEqual((ten['workers'],ten['concurrency'],ten['threads']),(4,10,6))
             with self.assertRaisesRegex(ValueError,'Sample count'):
                 resolve_resources(directory,samples=1000,jobs=4)
             self.assertEqual(path.read_bytes(),original)
