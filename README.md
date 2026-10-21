@@ -1,5 +1,7 @@
 # Deta Generator 2.0
 
+**材料核对（2026-10-21）：2.1.1 默认 Au/Palik 的原生拟合几乎丢失欧姆损耗。当前数据可用于数值流程验证，暂不建议据此扩大用于真实器件结论的数据集。** [完整证据与修正候选](https://github.com/CypherZzzyer05/Report/blob/main/reports/2026-10-21_gold_film_validation/README.md)。研究候选尚未达到全部材料误差门槛，生产物理配置未修改，未发布 2.2.0。
+
 新版独立数据生成器，层叠从下到上固定为 **SiO2 → Au → As2Se3 四聚体**。四聚体直接接触金膜。原项目 [Deta_Generator](https://github.com/CypherZzzyer05/Deta_Generator) 保留，旧版任务和数据不在本项目中续算或混合。
 
 Python 包为 `deta-generator2`，运行模块为 `deta_generator2`，可与旧版 `deta-generator` / `deta_generator` 同环境共存。
