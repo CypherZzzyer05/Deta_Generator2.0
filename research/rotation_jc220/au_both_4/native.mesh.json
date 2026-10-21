@@ -1,0 +1,34 @@
+{
+  "mesh_policy": "metal_only",
+  "maximum_mesh_nm": null,
+  "whole_domain_limit_enforced": false,
+  "actual_grid": {
+    "x": {
+      "points": 84,
+      "maximum_step_nm": 7.828438646399307,
+      "minimum_step_nm": 7.828438646398883
+    },
+    "y": {
+      "points": 84,
+      "maximum_step_nm": 7.828438646399307,
+      "minimum_step_nm": 7.828438646398883
+    },
+    "z": {
+      "points": 209,
+      "maximum_step_nm": 38.46153846154546,
+      "minimum_step_nm": 3.99999999999995
+    }
+  },
+  "all_returned_cells_below_10_nm": false,
+  "metal_region": {
+    "axis": "z",
+    "z_min_nm": -100,
+    "z_max_nm": 0.0,
+    "cells": 25,
+    "requested_step_nm": 4.0,
+    "maximum_step_nm": 4.0,
+    "minimum_step_nm": 3.999999999999986,
+    "reference_mesh_without_metal": false,
+    "reference_xy_pinned": false
+  }
+}

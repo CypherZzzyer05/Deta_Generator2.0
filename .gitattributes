@@ -8,3 +8,5 @@
 *.yml -text
 *.whl binary
 src/deta_generator2/assets/scripts/*.ps1 text eol=lf
+# The native material fingerprint addresses these exact packaged bytes.
+src/deta_generator2/assets/materials/au_jc_passive_nir_v1.json -text

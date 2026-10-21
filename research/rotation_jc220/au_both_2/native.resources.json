@@ -1,0 +1,87 @@
+{
+  "native": {
+    "Approximate_Memory_Requirements": {
+      "Alert": "You are using conformal mesh technology and the memory report is less reliable in this case. Please do some testing if the memory report indicates you are close to the memory limits of your computer.",
+      "Data_Collection_Bytes": 1837559296.0,
+      "FSP_Saved_Monitor_Data_Bytes": 15611968.0,
+      "Initialization_and_Mesh_Bytes": 167772160.0,
+      "Running_Simulation_Bytes": 1278611941.0
+    },
+    "Frequency_WaveLength_Settings": {
+      "Bandwidth_Source": "(detected from source settings)",
+      "Simulation_Bandwidth": {
+        "Alert": "",
+        "Maximum_Frequency_THz": 428.27493999999996,
+        "Maximum_Wavelength_Micrometer": 1.7000000000000002,
+        "Minimum_Frequency_THz": 176.34850470588233,
+        "Minimum_Wavelength_Micrometer": 0.7000000000000001,
+        "Simulation_Frequency_THz": 302.3117223529411,
+        "Simulation_Wavelength_Micrometer": 0.9916666666666668
+      }
+    },
+    "Geometry": {},
+    "Materials": {
+      "As2Se3_Joseph_70nm_film_2020": {
+        "Material_Name": "As2Se3 - Joseph 700nm film (2020)",
+        "RMS_Error": 0.019967914710257065
+      },
+      "Au_Gold_JC_pasive_NIR_v1": {
+        "Fit_Frequency_Max": 428.27494,
+        "Fit_Frequency_Min": 176.34850470588233,
+        "Fit_Wavelength_Max": 0.7,
+        "Fit_Wavelength_Min": 1.7000000000000002,
+        "Material_Name": "Au (Gold) - JC passive NIR v1",
+        "RMS_Error": 0.009934507346612097
+      },
+      "SiO2_Glas_Palik": {
+        "Material_Name": "SiO2 (Glass) - Palik",
+        "RMS_Error": 0.014738104833529504
+      }
+    },
+    "Memory_Details": {
+      "Electromagnetic_Fields_and_Refractive_Index": 275268837.0,
+      "Electromagnetic_Fields_and_Refractive_Index_Percent": 21.5,
+      "Field_Type": "Electromagnetic Fields and Refractive Index",
+      "Miscellaneous_Memory": 83886080.0,
+      "Miscellaneous_Memory_Percent": 6.6,
+      "Monitors": {
+        "Frequency_Domain_Field_Profile_Monitor_model_field_mid": {
+          "FSP_File": 7789904.0,
+          "Memory": 7789824.0,
+          "Monitor_Name": "Frequency Domain Field Profile Monitor, ::model::field_mid: ",
+          "Percent": 0.6
+        },
+        "Frequency_Domain_Field_Profile_Monitor_model_field_top": {
+          "FSP_File": 7789904.0,
+          "Memory": 7789824.0,
+          "Monitor_Name": "Frequency Domain Field Profile Monitor, ::model::field_top: ",
+          "Percent": 0.6
+        },
+        "Frequency_Domain_Power_Monitor_model_R": {
+          "FSP_File": 16080.0,
+          "Memory": 451600000.0,
+          "Monitor_Name": "Frequency Domain Power Monitor, ::model::R: ",
+          "Percent": 35.3
+        },
+        "Frequency_Domain_Power_Monitor_model_T": {
+          "FSP_File": 16080.0,
+          "Memory": 451600000.0,
+          "Monitor_Name": "Frequency Domain Power Monitor, ::model::T: ",
+          "Percent": 35.3
+        }
+      },
+      "Sources": {
+        "Planewave_Source_model_source": {
+          "Bytes": 677376.0,
+          "Percent": 0.1,
+          "Source_Name": "Planewave Source, ::model::source: "
+        }
+      }
+    },
+    "Memory_Recommended": 1278611940.5208573,
+    "Mesh_Override": "",
+    "Total_FDTD_Yee_Nodes": "1.88572"
+  },
+  "available_memory_bytes": 3765657600,
+  "recommended_memory_bytes": 1278611940.5208573
+}

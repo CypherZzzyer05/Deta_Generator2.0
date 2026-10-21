@@ -2,6 +2,8 @@
 
 日期：2026-10-22。发布仓库：[Deta_Generator2.0](https://github.com/CypherZzzyer05/Deta_Generator2.0)。
 
+**后续完整器件网格核对未通过。** 本文记录材料修正和原生求解流程成功，不构成网格收敛证明。请先查看 [最新角度/金层/网格对照](https://github.com/CypherZzzyer05/Report/blob/main/reports/2026-10-22_rotation_jc220/README.md)，暂缓大批量生产。
+
 **修正版已通过固定的 Au 材料拟合门槛、平面金膜解析对照，以及一个完整四聚体的原生求解与导出。服务器应安装 2.2.0 并新建任务，保留旧数据。** 当前数据等级仍为 `pipeline_validation`。
 
 ## 修复内容

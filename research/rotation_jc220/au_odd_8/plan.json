@@ -1,0 +1,121 @@
+{
+  "case": "au_odd_8",
+  "geometry_values": [
+    649.7604076511419,
+    161.1566330153756,
+    284.88377288849,
+    133.54673339593725,
+    116.4992120505661,
+    -33.64481402341028,
+    0.0
+  ],
+  "config": {
+    "simulation": {
+      "wavelength_start_nm": 700,
+      "wavelength_stop_nm": 1700,
+      "spectrum_points": 1000,
+      "mesh_accuracy": 4,
+      "mesh_refinement": "conformal variant 1",
+      "mesh_nm": 8,
+      "simulation_time_ps": 4,
+      "auto_shutoff_min": 1e-05,
+      "air_padding_nm": 3000,
+      "substrate_depth_nm": 350,
+      "background_index": 1,
+      "silicon_material": "Si (Silicon) - Palik",
+      "substrate_material": "SiO2 (Glass) - Palik",
+      "quality_tolerance": 0.03,
+      "require_auto_shutoff": true,
+      "resonator_material": "As2Se3 - Joseph 700nm film (2020)",
+      "resonator_nk_csv": "content-addressed:resonator_nk_sha256",
+      "material_max_extension_nm": 12,
+      "metal_material": "Au (Gold) - JC passive NIR v1",
+      "remove_metal": false,
+      "metal_thickness_nm": 100,
+      "metal_position": "above_substrate",
+      "substrate_termination": "pml",
+      "metal_mesh_nm": 8.0,
+      "bottom_padding_nm": 1600,
+      "material_fit_tolerance": 0,
+      "material_imaginary_weight": 2,
+      "mesh_policy": "metal_only"
+    },
+    "bounds_nm": {
+      "p": [
+        620,
+        690
+      ],
+      "l": [
+        160,
+        210
+      ],
+      "h": [
+        240,
+        380
+      ],
+      "alpha_x": [
+        90,
+        150
+      ],
+      "alpha_y": [
+        90,
+        150
+      ]
+    },
+    "sample_count": 12,
+    "seed": 20261011,
+    "parameter_range_source": "Exploratory near-IR engineering bounds; not validated fabrication bounds",
+    "quality_level": "pipeline_validation",
+    "quadrant_rotation_bounds_deg": {
+      "theta_odd_deg": [
+        -45,
+        45
+      ],
+      "theta_even_deg": [
+        -45,
+        45
+      ]
+    },
+    "resonator_nk_sha256": "9e6ee6d3b584f33226d7201e2b2e12490726cb3b8256726754e5aca9cae64ce9",
+    "generator": "deta-generator2/2.2.0",
+    "gold_model_sha256": "3d99086d70e1ecfcd0475f616029318a6549961856ca3c571c74376d298171a5",
+    "implementation_sha256": {
+      "config.py": "7303ababba0a9886997eaae79ee69e3e55ab62df214530874f8d94f8151b5c7a",
+      "lumerical.py": "813ba2c0cead01c68b3a8bbf968cd06061f8db3ac51a6a286fda38541b3ac491",
+      "pipeline.py": "73c41fc576bcbc4580e95c794cfa04aefd492d31f6b8fa9e0a5c48142a82e810",
+      "materials.py": "c7fd80049d73f1ecba9730a72b7ef398451220ee2a91b50127a4ccb0ea32d93b"
+    }
+  },
+  "field_wavelengths_nm": [
+    700.0,
+    750.0,
+    766.066066066066,
+    800.0,
+    850.0,
+    900.0,
+    950.0,
+    1000.0,
+    1050.0,
+    1100.0,
+    1112.4124124124123,
+    1150.0,
+    1200.0,
+    1250.0,
+    1300.0,
+    1350.0,
+    1400.0,
+    1450.0,
+    1500.0,
+    1550.0,
+    1600.0,
+    1650.0,
+    1700.0
+  ],
+  "control": "pillars_touch_gold",
+  "normalization": "|E|^2 / [2*sourceintensity/(eps0*c)] in CWnorm, air incidence",
+  "field_planes_nm": {
+    "mid": 142.441886444245,
+    "top": 294.88377288849
+  },
+  "production_settings_changed": false
+}

@@ -1,0 +1,131 @@
+{
+  "case": "release_jc",
+  "gold_source": "Au (Gold) - Johnson and Christy",
+  "native_version": "8.31.3633",
+  "native_parameters": {
+    "name": "Au (Gold) - JC passive NIR v1",
+    "source_material": "Au (Gold) - Johnson and Christy",
+    "source_doi": "https://doi.org/10.1103/PhysRevB.6.4370",
+    "wavelength_range_nm": [
+      700.0,
+      1700.0
+    ],
+    "frequency_unit": "1e15 rad/s",
+    "equation": "eps_inf - plasma^2/[omega*(omega+i*collision)] + sum strength*resonance^2/[resonance^2-omega^2-i*damping*omega]",
+    "parameters": [
+      7.671257005724947,
+      6.862990107663817,
+      0.001001259057891892,
+      499.9999733644303,
+      0.47179808910342685,
+      0.001000660906645666,
+      0.3994519400505301,
+      2.5132570171193116,
+      1.3089026747422934,
+      0.7584963305800069,
+      1.7932455240927558,
+      0.6649621313415591,
+      1.0583402250003604,
+      1.22048413459919,
+      0.22735409558675285,
+      3.2352482987610256,
+      1.0444964028229633,
+      0.1621642096163235,
+      0.14088399277100308,
+      1.5777479541646324,
+      0.21729048010733557,
+      0.002708158917152364,
+      1.1774421395808305,
+      0.013109880163960787,
+      0.7787338768889572,
+      1.4052946848180876,
+      0.30635185258665965
+    ],
+    "reference_fit_metrics": {
+      "max_n_error": 0.019382822887499374,
+      "max_k_error": 0.04875408818594096,
+      "max_relative_real_epsilon_error": 0.011921653509304221,
+      "max_relative_imag_epsilon_error": 0.0388177182537,
+      "raw_imag_epsilon_range": [
+        1.0637685714545735,
+        16.55158010311333
+      ],
+      "fitted_imag_epsilon_range": [
+        1.0264979648366717,
+        16.961954780239758
+      ],
+      "passive_in_band": true
+    },
+    "native_fit_settings": {
+      "tolerance": 0.0,
+      "max coefficients": 24,
+      "imaginary weight": 10.0,
+      "make fit passive": 1,
+      "improve numerical stability": 1,
+      "specify fit range": 1,
+      "wavelength min": 7e-07,
+      "wavelength max": 1.7e-06
+    },
+    "fit_limits": {
+      "max_n_error": 0.02,
+      "max_k_error": 0.05,
+      "max_relative_real_epsilon_error": 0.02,
+      "max_relative_imag_epsilon_error": 0.05
+    },
+    "gold_model_sha256": "3d99086d70e1ecfcd0475f616029318a6549961856ca3c571c74376d298171a5"
+  },
+  "material_metrics": {
+    "max_n_error": 0.019684646506049952,
+    "max_k_error": 0.04985406759934996,
+    "max_relative_real_epsilon_error": 0.011837818309612584,
+    "max_relative_imag_epsilon_error": 0.038654369680594956,
+    "raw_imag_epsilon_range": [
+      1.0637685714545735,
+      16.55158010311333
+    ],
+    "fitted_imag_epsilon_range": [
+      1.026776669899391,
+      16.96690963698893
+    ],
+    "passive_in_band": true
+  },
+  "requested_metal_mesh_nm": 8.0,
+  "actual_metal_max_step_nm": 7.7333333333333485,
+  "native_mesh_refinement": "conformal variant 0",
+  "pml_layers": 12,
+  "pml_inner_z_nm": [
+    -3760.492307692306,
+    3760.479999999996
+  ],
+  "source_and_monitors_outside_pml": true,
+  "planar_reference_background_maximum_z_mesh_nm": 20.0,
+  "cells": {
+    "x": 4,
+    "y": 4,
+    "z": 414
+  },
+  "solver_run_performed": true,
+  "note": "For MEL materials getindex reports base material; full response is validated through native planar R/T.",
+  "elapsed_seconds": 3.70299999999952,
+  "status": 2,
+  "model_maximum_R_error": 0.0006555185537034935,
+  "model_maximum_T_error": 0.0005819563802711862,
+  "model_maximum_A_error": 0.0005167144977838226,
+  "raw_input_maximum_R_error": 0.0009430327363466606,
+  "raw_input_maximum_T_error": 0.0005679463483245705,
+  "raw_input_maximum_A_error": 0.0010956726959677685,
+  "energy_range": {
+    "R": [
+      0.9701813850659134,
+      0.9829085800646975
+    ],
+    "T": [
+      4.218930304679539e-05,
+      0.0013358496385817563
+    ],
+    "A": [
+      0.017042466530962093,
+      0.028482765295504794
+    ]
+  }
+}
