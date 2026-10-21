@@ -1,0 +1,65 @@
+{
+  "case": "explicit_crc",
+  "gold_source": "Au (Gold) - CRC",
+  "native_version": "8.31.3633",
+  "native_parameters": [
+    {
+      "name": "Research CRC Drude",
+      "type": "Plasma",
+      "parameters": [
+        2.958328831257631,
+        12.811110254148916,
+        0.0387430621262657
+      ]
+    },
+    {
+      "name": "Research CRC Lorentz 1",
+      "type": "Magnetic Electric Lorentz (Version 1.0.0)",
+      "base": "Research CRC Drude",
+      "strength": 2.564350491573925,
+      "resonance_rad_s": 4182099382144968.0,
+      "lorentz_half_linewidth_rad_s": 159886854335898.38,
+      "actual_base": "Research CRC Drude"
+    },
+    {
+      "name": "Research CRC Lorentz 2",
+      "type": "Magnetic Electric Lorentz (Version 1.0.0)",
+      "base": "Research CRC Lorentz 1",
+      "strength": 0.08916667656858822,
+      "resonance_rad_s": 1626604745737882.5,
+      "lorentz_half_linewidth_rad_s": 329462811816784.1,
+      "actual_base": "Research CRC Lorentz 1"
+    }
+  ],
+  "material_metrics": {
+    "max_n_error": 0.0033979554449997673,
+    "max_k_error": 0.05321315049099162,
+    "max_relative_real_epsilon_error": 0.014468561333832734,
+    "max_relative_imag_epsilon_error": 0.037513009395019246,
+    "raw_imag_epsilon_range": [
+      0.6933899998949312,
+      4.7243171782456574
+    ],
+    "fitted_imag_epsilon_range": [
+      0.7038293504801747,
+      4.796314829971499
+    ],
+    "passive_in_band": true
+  },
+  "requested_metal_mesh_nm": 2.0,
+  "actual_metal_max_step_nm": 2.000000000000014,
+  "pml_layers": 12,
+  "pml_inner_z_nm": [
+    -3760.123076923076,
+    3760.119999999993
+  ],
+  "source_and_monitors_outside_pml": true,
+  "planar_reference_background_maximum_z_mesh_nm": 20.0,
+  "cells": {
+    "x": 4,
+    "y": 4,
+    "z": 457
+  },
+  "solver_run_performed": false,
+  "note": "For MEL materials getindex reports base material; full response is validated through native planar R/T."
+}

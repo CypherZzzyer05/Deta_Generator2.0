@@ -1,0 +1,59 @@
+{
+  "case": "legacy_palik",
+  "gold_source": "Au (Gold) - Palik",
+  "native_version": "8.31.3633",
+  "native_parameters": [],
+  "material_metrics": {
+    "max_n_error": 0.6558529804086315,
+    "max_k_error": 0.9026045749913916,
+    "max_relative_real_epsilon_error": 0.19962517502180413,
+    "max_relative_imag_epsilon_error": 0.9999998677081985,
+    "raw_imag_epsilon_range": [
+      1.2767353837037065,
+      14.173035294117646
+    ],
+    "fitted_imag_epsilon_range": [
+      1.6890162400144594e-07,
+      2.5955466823227785e-06
+    ],
+    "passive_in_band": true
+  },
+  "requested_metal_mesh_nm": 2.0,
+  "actual_metal_max_step_nm": 2.000000000000014,
+  "pml_layers": 12,
+  "pml_inner_z_nm": [
+    -3760.123076923076,
+    3760.119999999993
+  ],
+  "source_and_monitors_outside_pml": true,
+  "planar_reference_background_maximum_z_mesh_nm": 20.0,
+  "cells": {
+    "x": 4,
+    "y": 4,
+    "z": 457
+  },
+  "solver_run_performed": true,
+  "note": "For MEL materials getindex reports base material; full response is validated through native planar R/T.",
+  "elapsed_seconds": 5.188000000000102,
+  "status": 2,
+  "model_maximum_R_error": 0.0002859044111318543,
+  "model_maximum_T_error": 7.326780943781356e-05,
+  "model_maximum_A_error": 0.00030822001453220996,
+  "raw_input_maximum_R_error": 0.038159646111922574,
+  "raw_input_maximum_T_error": 0.0004907890560152883,
+  "raw_input_maximum_A_error": 0.037668857055907286,
+  "energy_range": {
+    "R": [
+      0.999235524509079,
+      1.0002253123899338
+    ],
+    "T": [
+      4.790126563471967e-05,
+      0.0004562512818459206
+    ],
+    "A": [
+      -0.0002765435301445817,
+      0.00030822420907503664
+    ]
+  }
+}

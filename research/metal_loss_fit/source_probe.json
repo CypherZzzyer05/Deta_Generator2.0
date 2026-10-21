@@ -1,0 +1,94 @@
+{
+  "native_version": "8.31.3633",
+  "solver_run_performed": false,
+  "results": [
+    {
+      "dataset": "Au (Gold) - CRC",
+      "label": "default",
+      "parameters": {},
+      "metrics": {
+        "max_n_error": 0.014251755034258407,
+        "max_k_error": 0.11677461523721266,
+        "max_relative_real_epsilon_error": 0.03180269070315817,
+        "max_relative_imag_epsilon_error": 0.1539888005429047,
+        "raw_imag_epsilon_range": [
+          0.6933899998949312,
+          4.7243171782456574
+        ],
+        "fitted_imag_epsilon_range": [
+          0.586615705502666,
+          4.711968916471361
+        ],
+        "passive_in_band": true
+      }
+    },
+    {
+      "dataset": "Au (Gold) - CRC",
+      "label": "loss_weighted",
+      "parameters": {
+        "tolerance": 0.0,
+        "max coefficients": 8,
+        "imaginary weight": 10.0
+      },
+      "metrics": {
+        "max_n_error": 0.014099908776836256,
+        "max_k_error": 0.1199558800786722,
+        "max_relative_real_epsilon_error": 0.03265381477293046,
+        "max_relative_imag_epsilon_error": 0.15093816858962072,
+        "raw_imag_epsilon_range": [
+          0.6933899998949312,
+          4.7243171782456574
+        ],
+        "fitted_imag_epsilon_range": [
+          0.588730983192433,
+          4.714409607736964
+        ],
+        "passive_in_band": true
+      }
+    },
+    {
+      "dataset": "Au (Gold) - Johnson and Christy",
+      "label": "default",
+      "parameters": {},
+      "metrics": {
+        "max_n_error": 0.07949827946893728,
+        "max_k_error": 0.14438191902278597,
+        "max_relative_real_epsilon_error": 0.023149201465145496,
+        "max_relative_imag_epsilon_error": 0.1507437513167712,
+        "raw_imag_epsilon_range": [
+          1.0637685714545735,
+          16.55158010311333
+        ],
+        "fitted_imag_epsilon_range": [
+          0.9034121064606283,
+          14.457331679372817
+        ],
+        "passive_in_band": true
+      }
+    },
+    {
+      "dataset": "Au (Gold) - Johnson and Christy",
+      "label": "loss_weighted",
+      "parameters": {
+        "tolerance": 0.0,
+        "max coefficients": 8,
+        "imaginary weight": 10.0
+      },
+      "metrics": {
+        "max_n_error": 0.08657537248691838,
+        "max_k_error": 0.12106669359411981,
+        "max_relative_real_epsilon_error": 0.025027591856569716,
+        "max_relative_imag_epsilon_error": 0.20750623839236973,
+        "raw_imag_epsilon_range": [
+          1.0637685714545735,
+          16.55158010311333
+        ],
+        "fitted_imag_epsilon_range": [
+          1.0299632495447117,
+          14.963710115403968
+        ],
+        "passive_in_band": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "case": "smooth_jc",
+  "gold_source": "Au (Gold) - Johnson and Christy",
+  "native_version": "8.31.3633",
+  "native_parameters": {
+    "rational_parameters": [
+      7.930070129388858,
+      11.721511190312459,
+      0.0010000000000000002,
+      58.46821781189917,
+      0.7428055117342862,
+      0.18657352718593978,
+      0.13202282108946556,
+      2.5851836170785343,
+      1.0688950996181186,
+      2.3255788077803277,
+      1.4296065877195177,
+      0.9892093365227029
+    ],
+    "rational_frequency_unit": "1e15 rad/s",
+    "native_mcm_settings": {
+      "tolerance": 0.0,
+      "max coefficients": 12,
+      "imaginary weight": 10.0,
+      "make fit passive": 1,
+      "improve numerical stability": 1
+    }
+  },
+  "material_metrics": {
+    "max_n_error": 0.016828444171086532,
+    "max_k_error": 0.09196366914677157,
+    "max_relative_real_epsilon_error": 0.016366823316494375,
+    "max_relative_imag_epsilon_error": 0.04428316711596763,
+    "raw_imag_epsilon_range": [
+      1.0637685714545735,
+      16.55158010311333
+    ],
+    "fitted_imag_epsilon_range": [
+      1.0336554758087004,
+      16.27147002239508
+    ],
+    "passive_in_band": true
+  },
+  "requested_metal_mesh_nm": 2.0,
+  "actual_metal_max_step_nm": 2.000000000000014,
+  "pml_layers": 12,
+  "pml_inner_z_nm": [
+    -3760.123076923076,
+    3760.119999999993
+  ],
+  "source_and_monitors_outside_pml": true,
+  "planar_reference_background_maximum_z_mesh_nm": 20.0,
+  "cells": {
+    "x": 4,
+    "y": 4,
+    "z": 457
+  },
+  "solver_run_performed": false,
+  "note": "For MEL materials getindex reports base material; full response is validated through native planar R/T."
+}

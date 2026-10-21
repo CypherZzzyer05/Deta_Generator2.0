@@ -1,0 +1,113 @@
+{
+  "solver_run_performed": false,
+  "results": [
+    {
+      "dataset": "Palik",
+      "lorentz_count": 3,
+      "parameters_frequency_unit": "1e15 rad/s",
+      "parameters": [
+        1.0000000000000002,
+        11.972825364213888,
+        0.0010000000000000002,
+        35.93499654889827,
+        0.770034873838817,
+        1.172459600817692,
+        0.4389698863702711,
+        2.775527645180658,
+        0.0012763449775873863,
+        0.02455530129762346,
+        1.5858044924604335,
+        0.11006021471436246
+      ],
+      "converged": true,
+      "metrics": {
+        "max_n_error": 0.05156264146331302,
+        "max_k_error": 0.618758365724922,
+        "max_relative_real_epsilon_error": 0.13809362591679272,
+        "max_relative_imag_epsilon_error": 0.060005847004073964,
+        "raw_imag_epsilon_range": [
+          1.2767353837037065,
+          14.173035294117646
+        ],
+        "fitted_imag_epsilon_range": [
+          1.3039138779405468,
+          13.350515749566695
+        ],
+        "passive_in_band": true
+      },
+      "passes_provisional_material_checks": false
+    },
+    {
+      "dataset": "JC",
+      "lorentz_count": 3,
+      "parameters_frequency_unit": "1e15 rad/s",
+      "parameters": [
+        7.930070129388858,
+        11.721511190312459,
+        0.0010000000000000002,
+        58.46821781189917,
+        0.7428055117342862,
+        0.18657352718593978,
+        0.13202282108946556,
+        2.5851836170785343,
+        1.0688950996181186,
+        2.3255788077803277,
+        1.4296065877195177,
+        0.9892093365227029
+      ],
+      "converged": true,
+      "metrics": {
+        "max_n_error": 0.01682845619704909,
+        "max_k_error": 0.09196369510375035,
+        "max_relative_real_epsilon_error": 0.01636682775733105,
+        "max_relative_imag_epsilon_error": 0.04428269963295546,
+        "raw_imag_epsilon_range": [
+          1.0637685714545735,
+          16.55158010311333
+        ],
+        "fitted_imag_epsilon_range": [
+          1.0336571988668573,
+          16.27147137735167
+        ],
+        "passive_in_band": true
+      },
+      "passes_provisional_material_checks": false
+    },
+    {
+      "dataset": "CRC",
+      "lorentz_count": 3,
+      "parameters_frequency_unit": "1e15 rad/s",
+      "parameters": [
+        1.0000000000000002,
+        12.798065262111182,
+        0.03862483090284711,
+        4.0711618794026165,
+        4.626429504368988,
+        0.0010000000000000002,
+        0.13934538756930193,
+        1.648116705317025,
+        0.8478289748166175,
+        0.12349810092541573,
+        2.8049142699205674,
+        1.0439202905163787
+      ],
+      "converged": true,
+      "metrics": {
+        "max_n_error": 0.0029356189700312507,
+        "max_k_error": 0.05185656004281203,
+        "max_relative_real_epsilon_error": 0.014842303619387244,
+        "max_relative_imag_epsilon_error": 0.03150214342003178,
+        "raw_imag_epsilon_range": [
+          0.6933899998949312,
+          4.7243171782456574
+        ],
+        "fitted_imag_epsilon_range": [
+          0.6889018250182215,
+          4.784604394672554
+        ],
+        "passive_in_band": true
+      },
+      "passes_provisional_material_checks": false
+    }
+  ]
+}

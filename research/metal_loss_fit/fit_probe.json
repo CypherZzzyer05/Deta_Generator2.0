@@ -1,0 +1,225 @@
+{
+  "native_version": "8.31.3633",
+  "solver_run_performed": false,
+  "band_nm": [
+    700,
+    1700
+  ],
+  "results": [
+    {
+      "metal": "Au",
+      "label": "legacy_default",
+      "metrics": {
+        "max_n_error": 0.6558529804086315,
+        "max_k_error": 0.9026045749913916,
+        "max_relative_real_epsilon_error": 0.19962517502180413,
+        "max_relative_imag_epsilon_error": 0.9999998677081985,
+        "raw_imag_epsilon_range": [
+          1.2767353837037065,
+          14.173035294117646
+        ],
+        "fitted_imag_epsilon_range": [
+          1.6890162400144594e-07,
+          2.5955466823227785e-06
+        ],
+        "passive_in_band": true
+      },
+      "fit_parameters": {
+        "tolerance": 0.1,
+        "max coefficients": 6.0,
+        "imaginary weight": 1.0,
+        "make fit passive": 1.0,
+        "improve numerical stability": 1.0
+      }
+    },
+    {
+      "metal": "Au",
+      "label": "coeff6_weight1",
+      "fit_parameters": {
+        "tolerance": 0.0,
+        "max coefficients": 6,
+        "imaginary weight": 1,
+        "make fit passive": 1,
+        "improve numerical stability": 1
+      },
+      "metrics": {
+        "max_n_error": 0.6558529804086315,
+        "max_k_error": 0.9026045749913916,
+        "max_relative_real_epsilon_error": 0.19962517502180413,
+        "max_relative_imag_epsilon_error": 0.9999998677081985,
+        "raw_imag_epsilon_range": [
+          1.2767353837037065,
+          14.173035294117646
+        ],
+        "fitted_imag_epsilon_range": [
+          1.6890162400144594e-07,
+          2.5955466823227785e-06
+        ],
+        "passive_in_band": true
+      },
+      "passes_provisional_material_checks": false
+    },
+    {
+      "metal": "Au",
+      "label": "coeff8_weight2",
+      "fit_parameters": {
+        "tolerance": 0.0,
+        "max coefficients": 8,
+        "imaginary weight": 2,
+        "make fit passive": 1,
+        "improve numerical stability": 1
+      },
+      "metrics": {
+        "max_n_error": 0.47837704446833273,
+        "max_k_error": 1.0240281679672032,
+        "max_relative_real_epsilon_error": 0.23577124594085738,
+        "max_relative_imag_epsilon_error": 1.0789288877496244,
+        "raw_imag_epsilon_range": [
+          1.2767353837037065,
+          14.173035294117646
+        ],
+        "fitted_imag_epsilon_range": [
+          0.6939679770653451,
+          13.359875318565358
+        ],
+        "passive_in_band": true
+      },
+      "passes_provisional_material_checks": false
+    },
+    {
+      "metal": "Au",
+      "label": "coeff12_weight2",
+      "fit_parameters": {
+        "tolerance": 0.0,
+        "max coefficients": 12,
+        "imaginary weight": 2,
+        "make fit passive": 1,
+        "improve numerical stability": 1
+      },
+      "metrics": {
+        "max_n_error": 2.952794767961767,
+        "max_k_error": 17.02952275751931,
+        "max_relative_real_epsilon_error": 0.49541610242799683,
+        "max_relative_imag_epsilon_error": 8.650057275122364,
+        "raw_imag_epsilon_range": [
+          1.2767353837037065,
+          14.173035294117646
+        ],
+        "fitted_imag_epsilon_range": [
+          -5.174820071729749,
+          52.983825241017804
+        ],
+        "passive_in_band": false
+      },
+      "passes_provisional_material_checks": false
+    },
+    {
+      "metal": "Ag",
+      "label": "legacy_default",
+      "metrics": {
+        "max_n_error": 0.019884433599219153,
+        "max_k_error": 0.06553763510841826,
+        "max_relative_real_epsilon_error": 0.017167541560849927,
+        "max_relative_imag_epsilon_error": 0.10712199616837562,
+        "raw_imag_epsilon_range": [
+          1.3035136587541014,
+          16.193110014358503
+        ],
+        "fitted_imag_epsilon_range": [
+          1.1924734291601256,
+          15.757690737183749
+        ],
+        "passive_in_band": true
+      },
+      "fit_parameters": {
+        "tolerance": 0.1,
+        "max coefficients": 6.0,
+        "imaginary weight": 1.0,
+        "make fit passive": 1.0,
+        "improve numerical stability": 1.0
+      }
+    },
+    {
+      "metal": "Ag",
+      "label": "coeff6_weight1",
+      "fit_parameters": {
+        "tolerance": 0.0,
+        "max coefficients": 6,
+        "imaginary weight": 1,
+        "make fit passive": 1,
+        "improve numerical stability": 1
+      },
+      "metrics": {
+        "max_n_error": 0.019884433599219153,
+        "max_k_error": 0.06553763510841826,
+        "max_relative_real_epsilon_error": 0.017167541560849927,
+        "max_relative_imag_epsilon_error": 0.10712199616837562,
+        "raw_imag_epsilon_range": [
+          1.3035136587541014,
+          16.193110014358503
+        ],
+        "fitted_imag_epsilon_range": [
+          1.1924734291601256,
+          15.757690737183749
+        ],
+        "passive_in_band": true
+      },
+      "passes_provisional_material_checks": false
+    },
+    {
+      "metal": "Ag",
+      "label": "coeff8_weight2",
+      "fit_parameters": {
+        "tolerance": 0.0,
+        "max coefficients": 8,
+        "imaginary weight": 2,
+        "make fit passive": 1,
+        "improve numerical stability": 1
+      },
+      "metrics": {
+        "max_n_error": 0.025011750406646827,
+        "max_k_error": 0.06660758943105094,
+        "max_relative_real_epsilon_error": 0.017949772482470823,
+        "max_relative_imag_epsilon_error": 0.08286494879803515,
+        "raw_imag_epsilon_range": [
+          1.3035136587541014,
+          16.193110014358503
+        ],
+        "fitted_imag_epsilon_range": [
+          1.230984491077126,
+          15.739576834295878
+        ],
+        "passive_in_band": true
+      },
+      "passes_provisional_material_checks": false
+    },
+    {
+      "metal": "Ag",
+      "label": "coeff12_weight2",
+      "fit_parameters": {
+        "tolerance": 0.0,
+        "max coefficients": 12,
+        "imaginary weight": 2,
+        "make fit passive": 1,
+        "improve numerical stability": 1
+      },
+      "metrics": {
+        "max_n_error": 0.025011750406646827,
+        "max_k_error": 0.06660758943105094,
+        "max_relative_real_epsilon_error": 0.017949772482470823,
+        "max_relative_imag_epsilon_error": 0.08286494879803515,
+        "raw_imag_epsilon_range": [
+          1.3035136587541014,
+          16.193110014358503
+        ],
+        "fitted_imag_epsilon_range": [
+          1.230984491077126,
+          15.739576834295878
+        ],
+        "passive_in_band": true
+      },
+      "passes_provisional_material_checks": false
+    }
+  ],
+  "note": "Material-only checks are provisional; plane-film FDTD versus analytic R/T still required"
+}

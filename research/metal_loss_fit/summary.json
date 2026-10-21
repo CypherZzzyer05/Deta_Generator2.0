@@ -1,0 +1,786 @@
+{
+  "scope": "Planar Air/Au100nm/semi-infinite SiO2 only; no tetramer calculation",
+  "native_version": "8.31.3633",
+  "candidate_source": "Au (Gold) - Johnson and Christy",
+  "candidate_material_metrics": {
+    "max_n_error": 0.016828444171086532,
+    "max_k_error": 0.09196366914677157,
+    "max_relative_real_epsilon_error": 0.016366823316494375,
+    "max_relative_imag_epsilon_error": 0.04428316711596763,
+    "raw_imag_epsilon_range": [
+      1.0637685714545735,
+      16.55158010311333
+    ],
+    "fitted_imag_epsilon_range": [
+      1.0336554758087004,
+      16.27147002239508
+    ],
+    "passive_in_band": true
+  },
+  "strict_material_gate_passed": false,
+  "gate_limits": {
+    "max_n_error": 0.02,
+    "max_k_error": 0.05,
+    "max_relative_real_epsilon_error": 0.02,
+    "max_relative_imag_epsilon_error": 0.05
+  },
+  "mesh_8_vs_4": {
+    "CV0": {
+      "maximum_R_absolute_difference": 0.0007447856471254344,
+      "maximum_T_absolute_difference": 0.0007616984322058256,
+      "maximum_T_relative_difference_vs_fine": 1.927094868905935,
+      "maximum_A_absolute_difference": 0.0002952877422621007
+    },
+    "CV1": {
+      "maximum_R_absolute_difference": 0.00032234898958982683,
+      "maximum_T_absolute_difference": 7.334544056705836e-06,
+      "maximum_T_relative_difference_vs_fine": 0.02367304806770454,
+      "maximum_A_absolute_difference": 0.0003161985431601802
+    }
+  },
+  "cases": {
+    "legacy_palik_2nm_bg20nm": {
+      "case": "legacy_palik",
+      "gold_source": "Au (Gold) - Palik",
+      "native_version": "8.31.3633",
+      "native_parameters": [],
+      "material_metrics": {
+        "max_n_error": 0.6558529804086315,
+        "max_k_error": 0.9026045749913916,
+        "max_relative_real_epsilon_error": 0.19962517502180413,
+        "max_relative_imag_epsilon_error": 0.9999998677081985,
+        "raw_imag_epsilon_range": [
+          1.2767353837037065,
+          14.173035294117646
+        ],
+        "fitted_imag_epsilon_range": [
+          1.6890162400144594e-07,
+          2.5955466823227785e-06
+        ],
+        "passive_in_band": true
+      },
+      "requested_metal_mesh_nm": 2.0,
+      "actual_metal_max_step_nm": 2.000000000000014,
+      "pml_layers": 12,
+      "pml_inner_z_nm": [
+        -3760.123076923076,
+        3760.119999999993
+      ],
+      "source_and_monitors_outside_pml": true,
+      "planar_reference_background_maximum_z_mesh_nm": 20.0,
+      "cells": {
+        "x": 4,
+        "y": 4,
+        "z": 457
+      },
+      "solver_run_performed": true,
+      "note": "For MEL materials getindex reports base material; full response is validated through native planar R/T.",
+      "elapsed_seconds": 5.188000000000102,
+      "status": 2,
+      "model_maximum_R_error": 0.0002859044111318543,
+      "model_maximum_T_error": 7.326780943781356e-05,
+      "model_maximum_A_error": 0.00030822001453220996,
+      "raw_input_maximum_R_error": 0.038159646111922574,
+      "raw_input_maximum_T_error": 0.0004907890560152883,
+      "raw_input_maximum_A_error": 0.037668857055907286,
+      "energy_range": {
+        "R": [
+          0.999235524509079,
+          1.0002253123899338
+        ],
+        "T": [
+          4.790126563471967e-05,
+          0.0004562512818459206
+        ],
+        "A": [
+          -0.0002765435301445817,
+          0.00030822420907503664
+        ]
+      },
+      "result_npz_sha256": "0d66a4ca4aaa9b4e84c5e09b801df76b4f3bbb57b03c03596bbcd6d725374215"
+    },
+    "explicit_crc_2nm_bg20nm": {
+      "case": "explicit_crc",
+      "gold_source": "Au (Gold) - CRC",
+      "native_version": "8.31.3633",
+      "native_parameters": [
+        {
+          "name": "Research CRC Drude",
+          "type": "Plasma",
+          "parameters": [
+            2.958328831257631,
+            12.811110254148916,
+            0.0387430621262657
+          ]
+        },
+        {
+          "name": "Research CRC Lorentz 1",
+          "type": "Magnetic Electric Lorentz (Version 1.0.0)",
+          "base": "Research CRC Drude",
+          "strength": 2.564350491573925,
+          "resonance_rad_s": 4182099382144968.0,
+          "lorentz_half_linewidth_rad_s": 159886854335898.38,
+          "actual_base": "Research CRC Drude"
+        },
+        {
+          "name": "Research CRC Lorentz 2",
+          "type": "Magnetic Electric Lorentz (Version 1.0.0)",
+          "base": "Research CRC Lorentz 1",
+          "strength": 0.08916667656858822,
+          "resonance_rad_s": 1626604745737882.5,
+          "lorentz_half_linewidth_rad_s": 329462811816784.1,
+          "actual_base": "Research CRC Lorentz 1"
+        }
+      ],
+      "material_metrics": {
+        "max_n_error": 0.0033979554449997673,
+        "max_k_error": 0.05321315049099162,
+        "max_relative_real_epsilon_error": 0.014468561333832734,
+        "max_relative_imag_epsilon_error": 0.037513009395019246,
+        "raw_imag_epsilon_range": [
+          0.6933899998949312,
+          4.7243171782456574
+        ],
+        "fitted_imag_epsilon_range": [
+          0.7038293504801747,
+          4.796314829971499
+        ],
+        "passive_in_band": true
+      },
+      "requested_metal_mesh_nm": 2.0,
+      "actual_metal_max_step_nm": 2.000000000000014,
+      "pml_layers": 12,
+      "pml_inner_z_nm": [
+        -3760.123076923076,
+        3760.119999999993
+      ],
+      "source_and_monitors_outside_pml": true,
+      "planar_reference_background_maximum_z_mesh_nm": 20.0,
+      "cells": {
+        "x": 4,
+        "y": 4,
+        "z": 457
+      },
+      "solver_run_performed": true,
+      "note": "For MEL materials getindex reports base material; full response is validated through native planar R/T.",
+      "elapsed_seconds": 3.686999999999898,
+      "status": 2,
+      "model_maximum_R_error": 0.015029904913679726,
+      "model_maximum_T_error": 0.0007609258702996784,
+      "model_maximum_A_error": 0.014268979043380047,
+      "raw_input_maximum_R_error": 0.01448942166578382,
+      "raw_input_maximum_T_error": 0.0007531742053793931,
+      "raw_input_maximum_A_error": 0.013736247460404426,
+      "energy_range": {
+        "R": [
+          0.9920407334671321,
+          0.9938427140089562
+        ],
+        "T": [
+          3.141392120108587e-05,
+          0.0002939336812026365
+        ],
+        "A": [
+          0.006125872069842729,
+          0.0076653328516653
+        ]
+      },
+      "result_npz_sha256": "d173911b55b90c4a845238d8972ab4e47fb9530eacd0eb554495d03217c7f7a6"
+    },
+    "smooth_jc_1nm_bg20nm": {
+      "case": "smooth_jc",
+      "gold_source": "Au (Gold) - Johnson and Christy",
+      "native_version": "8.31.3633",
+      "native_parameters": {
+        "rational_parameters": [
+          7.930070129388858,
+          11.721511190312459,
+          0.0010000000000000002,
+          58.46821781189917,
+          0.7428055117342862,
+          0.18657352718593978,
+          0.13202282108946556,
+          2.5851836170785343,
+          1.0688950996181186,
+          2.3255788077803277,
+          1.4296065877195177,
+          0.9892093365227029
+        ],
+        "rational_frequency_unit": "1e15 rad/s",
+        "native_mcm_settings": {
+          "tolerance": 0.0,
+          "max coefficients": 12,
+          "imaginary weight": 10.0,
+          "make fit passive": 1,
+          "improve numerical stability": 1
+        }
+      },
+      "material_metrics": {
+        "max_n_error": 0.016828444171086532,
+        "max_k_error": 0.09196366914677157,
+        "max_relative_real_epsilon_error": 0.016366823316494375,
+        "max_relative_imag_epsilon_error": 0.04428316711596763,
+        "raw_imag_epsilon_range": [
+          1.0637685714545735,
+          16.55158010311333
+        ],
+        "fitted_imag_epsilon_range": [
+          1.0336554758087004,
+          16.27147002239508
+        ],
+        "passive_in_band": true
+      },
+      "requested_metal_mesh_nm": 1.0,
+      "actual_metal_max_step_nm": 1.0000000000036522,
+      "pml_layers": 12,
+      "pml_inner_z_nm": [
+        -3760.0615384615357,
+        3760.059999999993
+      ],
+      "source_and_monitors_outside_pml": true,
+      "planar_reference_background_maximum_z_mesh_nm": 20.0,
+      "cells": {
+        "x": 4,
+        "y": 4,
+        "z": 511
+      },
+      "solver_run_performed": true,
+      "note": "For MEL materials getindex reports base material; full response is validated through native planar R/T.",
+      "elapsed_seconds": 5.140999999999622,
+      "status": 2,
+      "model_maximum_R_error": 0.0004655469143481916,
+      "model_maximum_T_error": 5.3913080174782446e-05,
+      "model_maximum_A_error": 0.00046396266680097734,
+      "raw_input_maximum_R_error": 0.0008923904046511666,
+      "raw_input_maximum_T_error": 7.640027655473215e-05,
+      "raw_input_maximum_A_error": 0.0008161962960020891,
+      "energy_range": {
+        "R": [
+          0.9705460491229214,
+          0.9826521325368772
+        ],
+        "T": [
+          1.8101296405747028e-05,
+          0.0006917091816081094
+        ],
+        "A": [
+          0.017324527716146683,
+          0.028762241695470474
+        ]
+      },
+      "result_npz_sha256": "d5a5c4b53c6e167ccaf7d0c2235f6fb27f495ff150203095d3a85cfd31a22dc4"
+    },
+    "smooth_jc_2nm_bg20nm": {
+      "case": "smooth_jc",
+      "gold_source": "Au (Gold) - Johnson and Christy",
+      "native_version": "8.31.3633",
+      "native_parameters": {
+        "rational_parameters": [
+          7.930070129388858,
+          11.721511190312459,
+          0.0010000000000000002,
+          58.46821781189917,
+          0.7428055117342862,
+          0.18657352718593978,
+          0.13202282108946556,
+          2.5851836170785343,
+          1.0688950996181186,
+          2.3255788077803277,
+          1.4296065877195177,
+          0.9892093365227029
+        ],
+        "rational_frequency_unit": "1e15 rad/s",
+        "native_mcm_settings": {
+          "tolerance": 0.0,
+          "max coefficients": 12,
+          "imaginary weight": 10.0,
+          "make fit passive": 1,
+          "improve numerical stability": 1
+        }
+      },
+      "material_metrics": {
+        "max_n_error": 0.016828444171086532,
+        "max_k_error": 0.09196366914677157,
+        "max_relative_real_epsilon_error": 0.016366823316494375,
+        "max_relative_imag_epsilon_error": 0.04428316711596763,
+        "raw_imag_epsilon_range": [
+          1.0637685714545735,
+          16.55158010311333
+        ],
+        "fitted_imag_epsilon_range": [
+          1.0336554758087004,
+          16.27147002239508
+        ],
+        "passive_in_band": true
+      },
+      "requested_metal_mesh_nm": 2.0,
+      "actual_metal_max_step_nm": 2.000000000000014,
+      "pml_layers": 12,
+      "pml_inner_z_nm": [
+        -3760.123076923076,
+        3760.119999999993
+      ],
+      "source_and_monitors_outside_pml": true,
+      "planar_reference_background_maximum_z_mesh_nm": 20.0,
+      "cells": {
+        "x": 4,
+        "y": 4,
+        "z": 457
+      },
+      "solver_run_performed": true,
+      "note": "For MEL materials getindex reports base material; full response is validated through native planar R/T.",
+      "elapsed_seconds": 3.858999999999469,
+      "status": 2,
+      "model_maximum_R_error": 0.0004581685098904442,
+      "model_maximum_T_error": 0.00010098985403257708,
+      "model_maximum_A_error": 0.0004549172730889464,
+      "raw_input_maximum_R_error": 0.0009779725101086711,
+      "raw_input_maximum_T_error": 0.00012327088250687105,
+      "raw_input_maximum_A_error": 0.0008547016276017998,
+      "energy_range": {
+        "R": [
+          0.9706316312283789,
+          0.982618868004085
+        ],
+        "T": [
+          1.6719419680150865e-05,
+          0.0006446324077503148
+        ],
+        "A": [
+          0.01736006265479506,
+          0.028723736363870763
+        ]
+      },
+      "result_npz_sha256": "a0c8017e98fa5191adc9e16e057600c8a8526da038f17e0496c327108eea996c"
+    },
+    "smooth_jc_4nm_bg20nm": {
+      "case": "smooth_jc",
+      "gold_source": "Au (Gold) - Johnson and Christy",
+      "native_version": "8.31.3633",
+      "native_parameters": {
+        "rational_parameters": [
+          7.930070129388858,
+          11.721511190312459,
+          0.0010000000000000002,
+          58.46821781189917,
+          0.7428055117342862,
+          0.18657352718593978,
+          0.13202282108946556,
+          2.5851836170785343,
+          1.0688950996181186,
+          2.3255788077803277,
+          1.4296065877195177,
+          0.9892093365227029
+        ],
+        "rational_frequency_unit": "1e15 rad/s",
+        "native_mcm_settings": {
+          "tolerance": 0.0,
+          "max coefficients": 12,
+          "imaginary weight": 10.0,
+          "make fit passive": 1,
+          "improve numerical stability": 1
+        }
+      },
+      "material_metrics": {
+        "max_n_error": 0.016828444171086532,
+        "max_k_error": 0.09196366914677157,
+        "max_relative_real_epsilon_error": 0.016366823316494375,
+        "max_relative_imag_epsilon_error": 0.04428316711596763,
+        "raw_imag_epsilon_range": [
+          1.0637685714545735,
+          16.55158010311333
+        ],
+        "fitted_imag_epsilon_range": [
+          1.0336554758087004,
+          16.27147002239508
+        ],
+        "passive_in_band": true
+      },
+      "requested_metal_mesh_nm": 4.0,
+      "actual_metal_max_step_nm": 4.000000000000049,
+      "pml_layers": 12,
+      "pml_inner_z_nm": [
+        -3760.2461538461507,
+        3760.240000000014
+      ],
+      "source_and_monitors_outside_pml": true,
+      "planar_reference_background_maximum_z_mesh_nm": 20.0,
+      "cells": {
+        "x": 4,
+        "y": 4,
+        "z": 428
+      },
+      "solver_run_performed": true,
+      "note": "For MEL materials getindex reports base material; full response is validated through native planar R/T.",
+      "elapsed_seconds": 3.782000000000153,
+      "status": 2,
+      "model_maximum_R_error": 0.0005115703879657874,
+      "model_maximum_T_error": 0.00018357384060777753,
+      "model_maximum_A_error": 0.0005053402148809429,
+      "raw_input_maximum_R_error": 0.0011575290104971492,
+      "raw_input_maximum_T_error": 0.0002058548690820715,
+      "raw_input_maximum_A_error": 0.0009516741414150771,
+      "energy_range": {
+        "R": [
+          0.9708111877287674,
+          0.9826693191565951
+        ],
+        "T": [
+          1.4228725412455502e-05,
+          0.0005620484211751143
+        ],
+        "A": [
+          0.01731278134070993,
+          0.028626763850057486
+        ]
+      },
+      "result_npz_sha256": "7e334e010587736682e2d230e276d4d74ca3578c81012fc75ecdb58df76f7da7"
+    },
+    "smooth_jc_8nm_bg20nm": {
+      "case": "smooth_jc",
+      "gold_source": "Au (Gold) - Johnson and Christy",
+      "native_version": "8.31.3633",
+      "native_parameters": {
+        "rational_parameters": [
+          7.930070129388858,
+          11.721511190312459,
+          0.0010000000000000002,
+          58.46821781189917,
+          0.7428055117342862,
+          0.18657352718593978,
+          0.13202282108946556,
+          2.5851836170785343,
+          1.0688950996181186,
+          2.3255788077803277,
+          1.4296065877195177,
+          0.9892093365227029
+        ],
+        "rational_frequency_unit": "1e15 rad/s",
+        "native_mcm_settings": {
+          "tolerance": 0.0,
+          "max coefficients": 12,
+          "imaginary weight": 10.0,
+          "make fit passive": 1,
+          "improve numerical stability": 1
+        }
+      },
+      "material_metrics": {
+        "max_n_error": 0.016828444171086532,
+        "max_k_error": 0.09196366914677157,
+        "max_relative_real_epsilon_error": 0.016366823316494375,
+        "max_relative_imag_epsilon_error": 0.04428316711596763,
+        "raw_imag_epsilon_range": [
+          1.0637685714545735,
+          16.55158010311333
+        ],
+        "fitted_imag_epsilon_range": [
+          1.0336554758087004,
+          16.27147002239508
+        ],
+        "passive_in_band": true
+      },
+      "requested_metal_mesh_nm": 8.0,
+      "actual_metal_max_step_nm": 7.7333333333333485,
+      "pml_layers": 12,
+      "pml_inner_z_nm": [
+        -3760.492307692306,
+        3760.479999999996
+      ],
+      "source_and_monitors_outside_pml": true,
+      "planar_reference_background_maximum_z_mesh_nm": 20.0,
+      "cells": {
+        "x": 4,
+        "y": 4,
+        "z": 414
+      },
+      "solver_run_performed": true,
+      "note": "For MEL materials getindex reports base material; full response is validated through native planar R/T.",
+      "elapsed_seconds": 3.82799999999952,
+      "status": 2,
+      "model_maximum_R_error": 0.0006915898239889806,
+      "model_maximum_T_error": 0.0005781245915980481,
+      "model_maximum_A_error": 0.0005656907052468373,
+      "raw_input_maximum_R_error": 0.0008803671593526907,
+      "raw_input_maximum_T_error": 0.0005558435631237541,
+      "raw_input_maximum_A_error": 0.0009685869264954676,
+      "energy_range": {
+        "R": [
+          0.970066402081642,
+          0.9825842374611934
+        ],
+        "T": [
+          4.164882914586998e-05,
+          0.00132374685338094
+        ],
+        "A": [
+          0.017368101244629175,
+          0.028609851064977095
+        ]
+      },
+      "result_npz_sha256": "3a28789a777ab8d5c386c21c65c2bbe5d783c5a84a888b0e185004935a098afe"
+    },
+    "smooth_jc_2nm_bg20nm_cv1": {
+      "case": "smooth_jc",
+      "gold_source": "Au (Gold) - Johnson and Christy",
+      "native_version": "8.31.3633",
+      "native_parameters": {
+        "rational_parameters": [
+          7.930070129388858,
+          11.721511190312459,
+          0.0010000000000000002,
+          58.46821781189917,
+          0.7428055117342862,
+          0.18657352718593978,
+          0.13202282108946556,
+          2.5851836170785343,
+          1.0688950996181186,
+          2.3255788077803277,
+          1.4296065877195177,
+          0.9892093365227029
+        ],
+        "rational_frequency_unit": "1e15 rad/s",
+        "native_mcm_settings": {
+          "tolerance": 0.0,
+          "max coefficients": 12,
+          "imaginary weight": 10.0,
+          "make fit passive": 1,
+          "improve numerical stability": 1
+        }
+      },
+      "material_metrics": {
+        "max_n_error": 0.016828444171086532,
+        "max_k_error": 0.09196366914677157,
+        "max_relative_real_epsilon_error": 0.016366823316494375,
+        "max_relative_imag_epsilon_error": 0.04428316711596763,
+        "raw_imag_epsilon_range": [
+          1.0637685714545735,
+          16.55158010311333
+        ],
+        "fitted_imag_epsilon_range": [
+          1.0336554758087004,
+          16.27147002239508
+        ],
+        "passive_in_band": true
+      },
+      "requested_metal_mesh_nm": 2.0,
+      "actual_metal_max_step_nm": 2.000000000000014,
+      "native_mesh_refinement": "conformal variant 1",
+      "pml_layers": 12,
+      "pml_inner_z_nm": [
+        -3760.123076923076,
+        3760.119999999993
+      ],
+      "source_and_monitors_outside_pml": true,
+      "planar_reference_background_maximum_z_mesh_nm": 20.0,
+      "cells": {
+        "x": 4,
+        "y": 4,
+        "z": 457
+      },
+      "solver_run_performed": true,
+      "note": "For MEL materials getindex reports base material; full response is validated through native planar R/T.",
+      "elapsed_seconds": 3.75,
+      "status": 2,
+      "model_maximum_R_error": 0.00041130386705401367,
+      "model_maximum_T_error": 1.6820822818724252e-06,
+      "model_maximum_A_error": 0.00041185999440008017,
+      "raw_input_maximum_R_error": 0.0008123485357628413,
+      "raw_input_maximum_T_error": 2.5586287366621027e-05,
+      "raw_input_maximum_A_error": 0.000789130672950198,
+      "energy_range": {
+        "R": [
+          0.9704660072540331,
+          0.9825722174064794
+        ],
+        "T": [
+          1.9913429210885194e-05,
+          0.0007446854274445433
+        ],
+        "A": [
+          0.0174027531211979,
+          0.028789307318522365
+        ]
+      },
+      "result_npz_sha256": "b7b562f5cd68690c446edf6eff06a32d55899af7593adae6b4e40d36812c707d"
+    },
+    "smooth_jc_4nm_bg20nm_cv1": {
+      "case": "smooth_jc",
+      "gold_source": "Au (Gold) - Johnson and Christy",
+      "native_version": "8.31.3633",
+      "native_parameters": {
+        "rational_parameters": [
+          7.930070129388858,
+          11.721511190312459,
+          0.0010000000000000002,
+          58.46821781189917,
+          0.7428055117342862,
+          0.18657352718593978,
+          0.13202282108946556,
+          2.5851836170785343,
+          1.0688950996181186,
+          2.3255788077803277,
+          1.4296065877195177,
+          0.9892093365227029
+        ],
+        "rational_frequency_unit": "1e15 rad/s",
+        "native_mcm_settings": {
+          "tolerance": 0.0,
+          "max coefficients": 12,
+          "imaginary weight": 10.0,
+          "make fit passive": 1,
+          "improve numerical stability": 1
+        }
+      },
+      "material_metrics": {
+        "max_n_error": 0.016828444171086532,
+        "max_k_error": 0.09196366914677157,
+        "max_relative_real_epsilon_error": 0.016366823316494375,
+        "max_relative_imag_epsilon_error": 0.04428316711596763,
+        "raw_imag_epsilon_range": [
+          1.0637685714545735,
+          16.55158010311333
+        ],
+        "fitted_imag_epsilon_range": [
+          1.0336554758087004,
+          16.27147002239508
+        ],
+        "passive_in_band": true
+      },
+      "requested_metal_mesh_nm": 4.0,
+      "actual_metal_max_step_nm": 4.000000000000049,
+      "native_mesh_refinement": "conformal variant 1",
+      "pml_layers": 12,
+      "pml_inner_z_nm": [
+        -3760.2461538461507,
+        3760.240000000014
+      ],
+      "source_and_monitors_outside_pml": true,
+      "planar_reference_background_maximum_z_mesh_nm": 20.0,
+      "cells": {
+        "x": 4,
+        "y": 4,
+        "z": 428
+      },
+      "solver_run_performed": true,
+      "note": "For MEL materials getindex reports base material; full response is validated through native planar R/T.",
+      "elapsed_seconds": 3.6719999999995707,
+      "status": 2,
+      "model_maximum_R_error": 0.0002768841897065055,
+      "model_maximum_T_error": 1.720507945695139e-06,
+      "model_maximum_A_error": 0.000275969183654589,
+      "raw_input_maximum_R_error": 0.0008274489976541899,
+      "raw_input_maximum_T_error": 2.2749512595647754e-05,
+      "raw_input_maximum_A_error": 0.0008060829752318116,
+      "energy_range": {
+        "R": [
+          0.9704811077159244,
+          0.9823866266158342
+        ],
+        "T": [
+          2.058089680438624e-05,
+          0.0007465372678348082
+        ],
+        "A": [
+          0.01758868024268867,
+          0.02877235501624075
+        ]
+      },
+      "result_npz_sha256": "d81ee1a439d9d12fe042c397c27ca70924293d6787a1a735195a37f0b21e0f42"
+    },
+    "smooth_jc_8nm_bg20nm_cv1": {
+      "case": "smooth_jc",
+      "gold_source": "Au (Gold) - Johnson and Christy",
+      "native_version": "8.31.3633",
+      "native_parameters": {
+        "rational_parameters": [
+          7.930070129388858,
+          11.721511190312459,
+          0.0010000000000000002,
+          58.46821781189917,
+          0.7428055117342862,
+          0.18657352718593978,
+          0.13202282108946556,
+          2.5851836170785343,
+          1.0688950996181186,
+          2.3255788077803277,
+          1.4296065877195177,
+          0.9892093365227029
+        ],
+        "rational_frequency_unit": "1e15 rad/s",
+        "native_mcm_settings": {
+          "tolerance": 0.0,
+          "max coefficients": 12,
+          "imaginary weight": 10.0,
+          "make fit passive": 1,
+          "improve numerical stability": 1
+        }
+      },
+      "material_metrics": {
+        "max_n_error": 0.016828444171086532,
+        "max_k_error": 0.09196366914677157,
+        "max_relative_real_epsilon_error": 0.016366823316494375,
+        "max_relative_imag_epsilon_error": 0.04428316711596763,
+        "raw_imag_epsilon_range": [
+          1.0637685714545735,
+          16.55158010311333
+        ],
+        "fitted_imag_epsilon_range": [
+          1.0336554758087004,
+          16.27147002239508
+        ],
+        "passive_in_band": true
+      },
+      "requested_metal_mesh_nm": 8.0,
+      "actual_metal_max_step_nm": 7.7333333333333485,
+      "native_mesh_refinement": "conformal variant 1",
+      "pml_layers": 12,
+      "pml_inner_z_nm": [
+        -3760.492307692306,
+        3760.479999999996
+      ],
+      "source_and_monitors_outside_pml": true,
+      "planar_reference_background_maximum_z_mesh_nm": 20.0,
+      "cells": {
+        "x": 4,
+        "y": 4,
+        "z": 414
+      },
+      "solver_run_performed": true,
+      "note": "For MEL materials getindex reports base material; full response is validated through native planar R/T.",
+      "elapsed_seconds": 3.764999999999418,
+      "status": 2,
+      "model_maximum_R_error": 0.0005858922584222048,
+      "model_maximum_T_error": 8.24955010862217e-06,
+      "model_maximum_A_error": 0.0005778978845918624,
+      "raw_input_maximum_R_error": 0.000972233573316994,
+      "raw_input_maximum_T_error": 1.6391947648034303e-05,
+      "raw_input_maximum_A_error": 0.0009688751267608563,
+      "energy_range": {
+        "R": [
+          0.9701758944821736,
+          0.9821346562693002
+        ],
+        "T": [
+          2.0776364043992728e-05,
+          0.000753871811891514
+        ],
+        "A": [
+          0.01784145869752564,
+          0.029070233705934923
+        ]
+      },
+      "result_npz_sha256": "1b511bc78a8cb350c745ee99da631d2a5d6f93a430742f351ec2e94c4b3979b1"
+    }
+  },
+  "analytic_zero_thickness_and_lossless_limits_verified": true,
+  "production_generator_modified": false,
+  "production_release_created": false,
+  "original_1000_sample_dataset_modified": false,
+  "decision": "Research candidate only: strict full-band k-error gate is not met; tetramer validation remains outstanding",
+  "rejected": {
+    "explicit_crc_nested_MEL": "Native R/T does not reproduce complete analytic model",
+    "legacy_Palik_fit": "Measured Ohmic loss is almost absent",
+    "initial_compact_domain_pilot": "Source/monitor overlapped upper PML",
+    "unrestricted_fit": "Does not meet accuracy/passivity criteria"
+  }
+}

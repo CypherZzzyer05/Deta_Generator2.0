@@ -1,0 +1,36 @@
+{
+  "case": "legacy_palik",
+  "gold_source": "Au (Gold) - Palik",
+  "native_version": "8.31.3633",
+  "native_parameters": [],
+  "material_metrics": {
+    "max_n_error": 0.6558529804086315,
+    "max_k_error": 0.9026045749913916,
+    "max_relative_real_epsilon_error": 0.19962517502180413,
+    "max_relative_imag_epsilon_error": 0.9999998677081985,
+    "raw_imag_epsilon_range": [
+      1.2767353837037065,
+      14.173035294117646
+    ],
+    "fitted_imag_epsilon_range": [
+      1.6890162400144594e-07,
+      2.5955466823227785e-06
+    ],
+    "passive_in_band": true
+  },
+  "requested_metal_mesh_nm": 2.0,
+  "actual_metal_max_step_nm": 2.000000000000014,
+  "pml_layers": 12,
+  "pml_inner_z_nm": [
+    -3429.5609756097538,
+    3172.8275862069
+  ],
+  "source_and_monitors_outside_pml": true,
+  "cells": {
+    "x": 4,
+    "y": 4,
+    "z": 209
+  },
+  "solver_run_performed": false,
+  "note": "For MEL materials getindex reports base material; full response is validated through native planar R/T."
+}

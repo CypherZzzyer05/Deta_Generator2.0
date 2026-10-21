@@ -1,0 +1,192 @@
+{
+  "native_version": "8.31.3633",
+  "solver_run_performed": false,
+  "results": [
+    {
+      "dataset": "CRC",
+      "max_coefficients": 8,
+      "analytic_model_metrics": {
+        "max_n_error": 2.591635919757529e-09,
+        "max_k_error": 1.8336940854624117e-09,
+        "max_relative_real_epsilon_error": 9.043652563700312e-10,
+        "max_relative_imag_epsilon_error": 2.9191734692626367e-08,
+        "raw_imag_epsilon_range": [
+          0.7038293504801747,
+          4.796314829971499
+        ],
+        "fitted_imag_epsilon_range": [
+          0.7038293624626348,
+          4.796314805583137
+        ],
+        "passive_in_band": true
+      },
+      "original_data_metrics": {
+        "max_n_error": 0.003397954371199413,
+        "max_k_error": 0.0532131522105983,
+        "max_relative_real_epsilon_error": 0.014468561797040175,
+        "max_relative_imag_epsilon_error": 0.03751300017355939,
+        "raw_imag_epsilon_range": [
+          0.6933899998949312,
+          4.7243171782456574
+        ],
+        "fitted_imag_epsilon_range": [
+          0.7038293624626348,
+          4.796314805583137
+        ],
+        "passive_in_band": true
+      },
+      "reference_parameters": [
+        2.958328831257631,
+        12.811110254148916,
+        0.0387430621262657,
+        2.564350491573925,
+        4.182099382144968,
+        0.3197737086717967,
+        0.08916667656858822,
+        1.6266047457378825,
+        0.6589256236335682
+      ]
+    },
+    {
+      "dataset": "CRC",
+      "max_coefficients": 12,
+      "analytic_model_metrics": {
+        "max_n_error": 1.8858525852039065e-13,
+        "max_k_error": 1.6857626405908377e-12,
+        "max_relative_real_epsilon_error": 7.414836974738784e-13,
+        "max_relative_imag_epsilon_error": 2.0057215575775675e-12,
+        "raw_imag_epsilon_range": [
+          0.7038293504801747,
+          4.796314829971499
+        ],
+        "fitted_imag_epsilon_range": [
+          0.7038293504797366,
+          4.796314829974108
+        ],
+        "passive_in_band": true
+      },
+      "original_data_metrics": {
+        "max_n_error": 0.003397955445100187,
+        "max_k_error": 0.05321315049068698,
+        "max_relative_real_epsilon_error": 0.014468561333751281,
+        "max_relative_imag_epsilon_error": 0.03751300939574569,
+        "raw_imag_epsilon_range": [
+          0.6933899998949312,
+          4.7243171782456574
+        ],
+        "fitted_imag_epsilon_range": [
+          0.7038293504797366,
+          4.796314829974108
+        ],
+        "passive_in_band": true
+      },
+      "reference_parameters": [
+        2.958328831257631,
+        12.811110254148916,
+        0.0387430621262657,
+        2.564350491573925,
+        4.182099382144968,
+        0.3197737086717967,
+        0.08916667656858822,
+        1.6266047457378825,
+        0.6589256236335682
+      ]
+    },
+    {
+      "dataset": "JC",
+      "max_coefficients": 8,
+      "analytic_model_metrics": {
+        "max_n_error": 0.0031502595990715865,
+        "max_k_error": 0.003002565202904428,
+        "max_relative_real_epsilon_error": 0.001425683301672699,
+        "max_relative_imag_epsilon_error": 0.025580317496814633,
+        "raw_imag_epsilon_range": [
+          1.0336571988668573,
+          16.27147137735169
+        ],
+        "fitted_imag_epsilon_range": [
+          1.007215919536975,
+          16.239672389025145
+        ],
+        "passive_in_band": true
+      },
+      "original_data_metrics": {
+        "max_n_error": 0.0168502053370444,
+        "max_k_error": 0.09216332481272715,
+        "max_relative_real_epsilon_error": 0.016403535650559017,
+        "max_relative_imag_epsilon_error": 0.05316255192637405,
+        "raw_imag_epsilon_range": [
+          1.0637685714545735,
+          16.55158010311333
+        ],
+        "fitted_imag_epsilon_range": [
+          1.007215919536975,
+          16.239672389025145
+        ],
+        "passive_in_band": true
+      },
+      "reference_parameters": [
+        7.930070129388858,
+        11.721511190312459,
+        0.0010000000000000002,
+        58.46821781189917,
+        0.7428055117342862,
+        0.18657352718593978,
+        0.13202282108946556,
+        2.5851836170785343,
+        1.0688950996181186,
+        2.3255788077803277,
+        1.4296065877195177,
+        0.9892093365227029
+      ]
+    },
+    {
+      "dataset": "JC",
+      "max_coefficients": 12,
+      "analytic_model_metrics": {
+        "max_n_error": 2.0592390345686162e-07,
+        "max_k_error": 3.089565261404914e-07,
+        "max_relative_real_epsilon_error": 1.485618615291932e-07,
+        "max_relative_imag_epsilon_error": 1.666953182071017e-06,
+        "raw_imag_epsilon_range": [
+          1.0336571988668573,
+          16.27147137735169
+        ],
+        "fitted_imag_epsilon_range": [
+          1.0336554758087004,
+          16.27147002239508
+        ],
+        "passive_in_band": true
+      },
+      "original_data_metrics": {
+        "max_n_error": 0.016828444171086532,
+        "max_k_error": 0.09196366914677157,
+        "max_relative_real_epsilon_error": 0.016366823316494375,
+        "max_relative_imag_epsilon_error": 0.04428316711596763,
+        "raw_imag_epsilon_range": [
+          1.0637685714545735,
+          16.55158010311333
+        ],
+        "fitted_imag_epsilon_range": [
+          1.0336554758087004,
+          16.27147002239508
+        ],
+        "passive_in_band": true
+      },
+      "reference_parameters": [
+        7.930070129388858,
+        11.721511190312459,
+        0.0010000000000000002,
+        58.46821781189917,
+        0.7428055117342862,
+        0.18657352718593978,
+        0.13202282108946556,
+        2.5851836170785343,
+        1.0688950996181186,
+        2.3255788077803277,
+        1.4296065877195177,
+        0.9892093365227029
+      ]
+    }
+  ]
+}

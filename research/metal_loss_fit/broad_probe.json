@@ -1,0 +1,238 @@
+{
+  "native_version": "8.31.3633",
+  "solver_run_performed": false,
+  "results": [
+    {
+      "metal": "Au",
+      "fit_parameters": {
+        "tolerance": 0.0,
+        "max coefficients": 6,
+        "imaginary weight": 1,
+        "make fit passive": 1,
+        "improve numerical stability": 1,
+        "specify fit range": 1,
+        "wavelength min": 4.0000000000000003e-07,
+        "wavelength max": 2.0000000000000003e-06
+      },
+      "metrics": {
+        "max_n_error": 0.6558515230681711,
+        "max_k_error": 0.9864598150420187,
+        "max_relative_real_epsilon_error": 0.21864086943837618,
+        "max_relative_imag_epsilon_error": 0.9999975777062157,
+        "raw_imag_epsilon_range": [
+          1.2767353837037065,
+          14.173035294117646
+        ],
+        "fitted_imag_epsilon_range": [
+          1.1591925702764034e-05,
+          3.433125529862008e-05
+        ],
+        "passive_in_band": true
+      },
+      "passes_provisional_material_checks": false
+    },
+    {
+      "metal": "Au",
+      "fit_parameters": {
+        "tolerance": 0.0,
+        "max coefficients": 12,
+        "imaginary weight": 2,
+        "make fit passive": 1,
+        "improve numerical stability": 1,
+        "specify fit range": 1,
+        "wavelength min": 4.0000000000000003e-07,
+        "wavelength max": 2.0000000000000003e-06
+      },
+      "metrics": {
+        "max_n_error": 0.47099422963174786,
+        "max_k_error": 9.901480672817044,
+        "max_relative_real_epsilon_error": 0.20485598481332024,
+        "max_relative_imag_epsilon_error": 1.0002721995870687,
+        "raw_imag_epsilon_range": [
+          1.2767353837037065,
+          14.173035294117646
+        ],
+        "fitted_imag_epsilon_range": [
+          -0.0005186060878137333,
+          22.537860499042075
+        ],
+        "passive_in_band": false
+      },
+      "passes_provisional_material_checks": false
+    },
+    {
+      "metal": "Au",
+      "fit_parameters": {
+        "tolerance": 0.0,
+        "max coefficients": 12,
+        "imaginary weight": 10,
+        "make fit passive": 1,
+        "improve numerical stability": 1,
+        "specify fit range": 1,
+        "wavelength min": 5.000000000000001e-07,
+        "wavelength max": 2.0000000000000003e-06
+      },
+      "metrics": {
+        "max_n_error": 0.14992462682197788,
+        "max_k_error": 1.2824110277788128,
+        "max_relative_real_epsilon_error": 0.5090273015140299,
+        "max_relative_imag_epsilon_error": 0.3607291017093794,
+        "raw_imag_epsilon_range": [
+          1.2767353837037065,
+          14.173035294117646
+        ],
+        "fitted_imag_epsilon_range": [
+          1.7262693084824248,
+          12.26300470166286
+        ],
+        "passive_in_band": true
+      },
+      "passes_provisional_material_checks": false
+    },
+    {
+      "metal": "Au",
+      "fit_parameters": {
+        "tolerance": 0.0,
+        "max coefficients": 24,
+        "imaginary weight": 2,
+        "make fit passive": 1,
+        "improve numerical stability": 1,
+        "specify fit range": 1,
+        "wavelength min": 4.0000000000000003e-07,
+        "wavelength max": 2.0000000000000003e-06
+      },
+      "metrics": {
+        "max_n_error": 0.36061781815217503,
+        "max_k_error": 17.434561711797436,
+        "max_relative_real_epsilon_error": 0.3184164285877749,
+        "max_relative_imag_epsilon_error": 2.379509011158236,
+        "raw_imag_epsilon_range": [
+          1.2767353837037065,
+          14.173035294117646
+        ],
+        "fitted_imag_epsilon_range": [
+          -8.887421299276333,
+          14.652854175024164
+        ],
+        "passive_in_band": false
+      },
+      "passes_provisional_material_checks": false
+    },
+    {
+      "metal": "Ag",
+      "fit_parameters": {
+        "tolerance": 0.0,
+        "max coefficients": 6,
+        "imaginary weight": 1,
+        "make fit passive": 1,
+        "improve numerical stability": 1,
+        "specify fit range": 1,
+        "wavelength min": 4.0000000000000003e-07,
+        "wavelength max": 2.0000000000000003e-06
+      },
+      "metrics": {
+        "max_n_error": 0.03066820292804201,
+        "max_k_error": 0.08651641216467709,
+        "max_relative_real_epsilon_error": 0.035877560989670605,
+        "max_relative_imag_epsilon_error": 0.2130156107818986,
+        "raw_imag_epsilon_range": [
+          1.3035136587541014,
+          16.193110014358503
+        ],
+        "fitted_imag_epsilon_range": [
+          1.0420038615625251,
+          15.797131223706819
+        ],
+        "passive_in_band": true
+      },
+      "passes_provisional_material_checks": false
+    },
+    {
+      "metal": "Ag",
+      "fit_parameters": {
+        "tolerance": 0.0,
+        "max coefficients": 12,
+        "imaginary weight": 2,
+        "make fit passive": 1,
+        "improve numerical stability": 1,
+        "specify fit range": 1,
+        "wavelength min": 4.0000000000000003e-07,
+        "wavelength max": 2.0000000000000003e-06
+      },
+      "metrics": {
+        "max_n_error": 0.08034518053813278,
+        "max_k_error": 0.12555448610200504,
+        "max_relative_real_epsilon_error": 0.051647512703762874,
+        "max_relative_imag_epsilon_error": 0.521552068258856,
+        "raw_imag_epsilon_range": [
+          1.3035136587541014,
+          16.193110014358503
+        ],
+        "fitted_imag_epsilon_range": [
+          1.1906682234796258,
+          15.858968896136492
+        ],
+        "passive_in_band": true
+      },
+      "passes_provisional_material_checks": false
+    },
+    {
+      "metal": "Ag",
+      "fit_parameters": {
+        "tolerance": 0.0,
+        "max coefficients": 12,
+        "imaginary weight": 10,
+        "make fit passive": 1,
+        "improve numerical stability": 1,
+        "specify fit range": 1,
+        "wavelength min": 5.000000000000001e-07,
+        "wavelength max": 2.0000000000000003e-06
+      },
+      "metrics": {
+        "max_n_error": 0.06635300809907257,
+        "max_k_error": 0.07610575171054368,
+        "max_relative_real_epsilon_error": 0.03060868252304399,
+        "max_relative_imag_epsilon_error": 0.4438286028125399,
+        "raw_imag_epsilon_range": [
+          1.3035136587541014,
+          16.193110014358503
+        ],
+        "fitted_imag_epsilon_range": [
+          1.3095950658543827,
+          15.886627047013988
+        ],
+        "passive_in_band": true
+      },
+      "passes_provisional_material_checks": false
+    },
+    {
+      "metal": "Ag",
+      "fit_parameters": {
+        "tolerance": 0.0,
+        "max coefficients": 24,
+        "imaginary weight": 2,
+        "make fit passive": 1,
+        "improve numerical stability": 1,
+        "specify fit range": 1,
+        "wavelength min": 4.0000000000000003e-07,
+        "wavelength max": 2.0000000000000003e-06
+      },
+      "metrics": {
+        "max_n_error": 0.08034518053813278,
+        "max_k_error": 0.12555448610200504,
+        "max_relative_real_epsilon_error": 0.051647512703762874,
+        "max_relative_imag_epsilon_error": 0.521552068258856,
+        "raw_imag_epsilon_range": [
+          1.3035136587541014,
+          16.193110014358503
+        ],
+        "fitted_imag_epsilon_range": [
+          1.1906682234796258,
+          15.858968896136492
+        ],
+        "passive_in_band": true
+      },
+      "passes_provisional_material_checks": false
+    }
+  ]
+}

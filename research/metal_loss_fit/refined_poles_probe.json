@@ -1,0 +1,77 @@
+{
+  "solver_run_performed": false,
+  "results": [
+    {
+      "dataset": "JC",
+      "lorentz_count": 3,
+      "parameters_frequency_unit": "1e15 rad/s",
+      "parameters": [
+        7.975289784154143,
+        10.717595739079686,
+        0.001000000001795946,
+        182.98013939497616,
+        0.5617215045962999,
+        0.2081280773369855,
+        0.07293326847677273,
+        2.571143741859175,
+        0.8002744467568899,
+        0.8050263719985025,
+        1.5192033261838656,
+        0.8690170466284842
+      ],
+      "converged": true,
+      "metrics": {
+        "max_n_error": 0.020783048907469404,
+        "max_k_error": 0.07549260351135878,
+        "max_relative_real_epsilon_error": 0.014863467317065377,
+        "max_relative_imag_epsilon_error": 0.044113682220510965,
+        "raw_imag_epsilon_range": [
+          1.0637685714545735,
+          16.55158010311333
+        ],
+        "fitted_imag_epsilon_range": [
+          1.02768379001143,
+          15.9929345284497
+        ],
+        "passive_in_band": true
+      },
+      "passes_provisional_material_checks": false
+    },
+    {
+      "dataset": "CRC",
+      "lorentz_count": 3,
+      "parameters_frequency_unit": "1e15 rad/s",
+      "parameters": [
+        1.0000000000000002,
+        12.789563953617524,
+        0.03772400452250005,
+        3.9259035033522327,
+        4.418901354643896,
+        0.0010000000000017252,
+        0.1711085285194865,
+        1.5854557681609787,
+        0.8428028743638513,
+        0.12717874945425545,
+        2.778495147944454,
+        1.0774345253168107
+      ],
+      "converged": true,
+      "metrics": {
+        "max_n_error": 0.0024541066733312356,
+        "max_k_error": 0.052259618399909336,
+        "max_relative_real_epsilon_error": 0.016056080972512363,
+        "max_relative_imag_epsilon_error": 0.028039816006456535,
+        "raw_imag_epsilon_range": [
+          0.6933899998949312,
+          4.7243171782456574
+        ],
+        "fitted_imag_epsilon_range": [
+          0.6831132692260018,
+          4.716941972925399
+        ],
+        "passive_in_band": true
+      },
+      "passes_provisional_material_checks": false
+    }
+  ]
+}

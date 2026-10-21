@@ -1,0 +1,44 @@
+{
+  "native_version": "8.31.3633",
+  "query": "getmaterial(name, 'sampled 3d data')",
+  "solver_run_performed": false,
+  "results": [
+    {
+      "name": "Au (Gold) - Palik",
+      "native_sample_count": 311,
+      "samples_near_1240nm": [
+        {
+          "wavelength_nm": 1240.0,
+          "n": 0.37200000000000044,
+          "k": 8.77
+        },
+        {
+          "wavelength_nm": 1265.0,
+          "n": 0.38900000000000057,
+          "k": 8.09
+        },
+        {
+          "wavelength_nm": 1291.0,
+          "n": 0.40299999999999975,
+          "k": 8.25
+        },
+        {
+          "wavelength_nm": 1319.0,
+          "n": 0.41900000000000087,
+          "k": 8.42
+        }
+      ]
+    },
+    {
+      "name": "Au (Gold) - Johnson and Christy",
+      "native_sample_count": 49,
+      "samples_near_1240nm": [
+        {
+          "wavelength_nm": 1215.6862750000003,
+          "n": 0.35000000000000087,
+          "k": 8.145
+        }
+      ]
+    }
+  ]
+}

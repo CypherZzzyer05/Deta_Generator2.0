@@ -1,0 +1,129 @@
+{
+  "solver_run_performed": false,
+  "results": [
+    {
+      "dataset": "Au (Gold) - Palik",
+      "parameters": {
+        "tolerance": 0.0,
+        "max coefficients": 12,
+        "imaginary weight": 1.0,
+        "make fit passive": 0,
+        "improve numerical stability": 0
+      },
+      "metrics": {
+        "max_n_error": 0.9223462334146841,
+        "max_k_error": 17.71350557668903,
+        "max_relative_real_epsilon_error": 0.47337475686731734,
+        "max_relative_imag_epsilon_error": 4.180049922987461,
+        "raw_imag_epsilon_range": [
+          1.2767353837037065,
+          14.173035294117646
+        ],
+        "fitted_imag_epsilon_range": [
+          -20.11751784530361,
+          18.290498774098808
+        ],
+        "passive_in_band": false
+      },
+      "extended_frequency_hz": [
+        10000000000.0,
+        1e+18
+      ],
+      "extended_minimum_Im_epsilon": -21.70820196489191,
+      "extended_negative_loss_points": 4937
+    },
+    {
+      "dataset": "Au (Gold) - Palik",
+      "parameters": {
+        "tolerance": 0.0,
+        "max coefficients": 12,
+        "imaginary weight": 10.0,
+        "make fit passive": 0,
+        "improve numerical stability": 0
+      },
+      "metrics": {
+        "max_n_error": 0.35476030725290686,
+        "max_k_error": 17.338285995748503,
+        "max_relative_real_epsilon_error": 0.541585092280317,
+        "max_relative_imag_epsilon_error": 1.9264373842965399,
+        "raw_imag_epsilon_range": [
+          1.2767353837037065,
+          14.173035294117646
+        ],
+        "fitted_imag_epsilon_range": [
+          -5.908871770102996,
+          13.973717672345726
+        ],
+        "passive_in_band": false
+      },
+      "extended_frequency_hz": [
+        10000000000.0,
+        1e+18
+      ],
+      "extended_minimum_Im_epsilon": -8.355544738903738,
+      "extended_negative_loss_points": 4367
+    },
+    {
+      "dataset": "Au (Gold) - Johnson and Christy",
+      "parameters": {
+        "tolerance": 0.0,
+        "max coefficients": 12,
+        "imaginary weight": 1.0,
+        "make fit passive": 0,
+        "improve numerical stability": 0
+      },
+      "metrics": {
+        "max_n_error": 0.06747362036869742,
+        "max_k_error": 0.14711899960625985,
+        "max_relative_real_epsilon_error": 0.023700035614618458,
+        "max_relative_imag_epsilon_error": 0.12969249005557162,
+        "raw_imag_epsilon_range": [
+          1.0637685714545735,
+          16.55158010311333
+        ],
+        "fitted_imag_epsilon_range": [
+          0.9258057765797716,
+          14.740772089914678
+        ],
+        "passive_in_band": true
+      },
+      "extended_frequency_hz": [
+        10000000000.0,
+        1e+18
+      ],
+      "extended_minimum_Im_epsilon": -0.07246579818413101,
+      "extended_negative_loss_points": 4625
+    },
+    {
+      "dataset": "Au (Gold) - Johnson and Christy",
+      "parameters": {
+        "tolerance": 0.0,
+        "max coefficients": 12,
+        "imaginary weight": 10.0,
+        "make fit passive": 0,
+        "improve numerical stability": 0
+      },
+      "metrics": {
+        "max_n_error": 0.06893708529713916,
+        "max_k_error": 0.15498270248043866,
+        "max_relative_real_epsilon_error": 0.03944871543389917,
+        "max_relative_imag_epsilon_error": 0.19058690537618422,
+        "raw_imag_epsilon_range": [
+          1.0637685714545735,
+          16.55158010311333
+        ],
+        "fitted_imag_epsilon_range": [
+          1.093007001423315,
+          14.696173578160112
+        ],
+        "passive_in_band": true
+      },
+      "extended_frequency_hz": [
+        10000000000.0,
+        1e+18
+      ],
+      "extended_minimum_Im_epsilon": 9.005468788342115e-05,
+      "extended_negative_loss_points": 0
+    }
+  ]
+}

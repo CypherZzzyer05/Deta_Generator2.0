@@ -1,0 +1,40 @@
+{
+  "dataset": "JC",
+  "lorentz_count": 4,
+  "parameters_frequency_unit": "1e15 rad/s",
+  "parameters": [
+    8.168890907087238,
+    11.46354276734574,
+    0.0010000000260320734,
+    95.37510448574513,
+    0.6563596376820953,
+    0.22215555388027755,
+    0.11693845453648592,
+    2.5687894346975835,
+    1.0080237099843241,
+    1.2569654508855808,
+    1.5033680896181214,
+    0.9136830789753599,
+    0.024587467171789824,
+    1.2369793493466208,
+    0.06010583007260478
+  ],
+  "converged": true,
+  "metrics": {
+    "max_n_error": 0.018186653895758353,
+    "max_k_error": 0.07077535594079976,
+    "max_relative_real_epsilon_error": 0.015366998645143121,
+    "max_relative_imag_epsilon_error": 0.04249857304296008,
+    "raw_imag_epsilon_range": [
+      1.0637685714545735,
+      16.55158010311333
+    ],
+    "fitted_imag_epsilon_range": [
+      1.0282142226315878,
+      16.06546679344948
+    ],
+    "passive_in_band": true
+  },
+  "passes_provisional_material_checks": false,
+  "solver_run_performed": false
+}

@@ -1,0 +1,22 @@
+{
+  "model": "Drude",
+  "permittivity": 1.5678361258194424,
+  "plasma_resonance_rad_s": 1.2475333310171854e+16,
+  "plasma_collision_rad_s": 140892042915557.03,
+  "metrics": {
+    "max_n_error": 0.057285899843567356,
+    "max_k_error": 0.6813709067247586,
+    "max_relative_real_epsilon_error": 0.2649384835374457,
+    "max_relative_imag_epsilon_error": 0.12583321057884098,
+    "raw_imag_epsilon_range": [
+      1.2767353837037065,
+      14.173035294117646
+    ],
+    "fitted_imag_epsilon_range": [
+      1.1222619912447513,
+      15.862444131830522
+    ],
+    "passive_in_band": true
+  },
+  "solver_run_performed": false
+}
